@@ -14,7 +14,7 @@ public class Utils {
 
     public static void validateMsisdn(String... msisdns) throws SQLException {
         for (String msisdn : msisdns) {
-            if (!msisdn.startsWith("7") || msisdn.length() != 11)
+            if (msisdn == null || !msisdn.startsWith("7") || msisdn.length() != 11)
                 throw new SQLException("Wrong msisdn", null, 20102);
         }
     }

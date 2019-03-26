@@ -6,6 +6,7 @@ import com.bercut.mb.sdk.MessageBusFault;
 import com.bercut.mb.sdk.request.ServerRequestParameters;
 import com.bercut.sa.parentalctl.atlas.AtlasProvider;
 import com.bercut.sa.parentalctl.db.DbService;
+import com.bercut.sa.parentalctl.logs.LoggerText;
 import com.bercut.sa.parentalctl.utils.Utils;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnRequestType;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
@@ -29,16 +30,13 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
 
     private final Logger logger = LoggerFactory.getLogger(ParentalCtlSoapImpl.class);
     private ParentalCtlPortTypeSynchServer parentalctlServise;
-
     private final ServletContext servletContext;
     private final DbService dbService;
-    private AtlasProvider atlas;
 
     @Autowired
     public ParentalCtlSoapImpl(ServletContext servletContext, DbService dbService, AtlasProvider atlas) {
         this.servletContext = servletContext;
         this.dbService = dbService;
-        this.atlas = atlas;
     }
 
     @PostConstruct
@@ -58,12 +56,13 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
 
     @Override
     public GetMsisdnResponseType parentalCtlOperation(GetMsisdnRequestType params, ServerRequestParameters requestParameters) throws SqlExceptionException {
-        String sessionId = Utils.createUuid();
+        String sessionId = requestParameters.getContext().getUuid().toString();
         GetMsisdnResponseType response;
         try {
             Utils.validateMsisdn(params.getMsisdn());
             response = dbService.getMsisdn(sessionId, params);
         } catch (SQLException e) {
+            logger.error(LoggerText.SQL_ERROR.getText(), sessionId);
             throw new SqlExceptionException("GetMsisdn fault", new SqlException(e.getMessage(), e.getErrorCode()));
         }
         return response;
