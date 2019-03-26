@@ -6,7 +6,8 @@ package com.bercut.sa.parentalctl.logs;
 public enum LoggerText {
     REST_REQUEST("Session {} -> {} request received.\nInput parameters: \n{}"),
     SQL_RESPONSE("Session {} -> {} exec time (ms): {}"),
-    SQL_ERROR("Session {} -> {} generate SQL error: {}");
+    SQL_ERROR("Session {} -> {} generate SQL error: {}"),
+    REST_ERROR("Session {} -> {} rest response: {}");
 
     private String text;
 

@@ -1,9 +1,12 @@
 package com.bercut.sa.parentalctl.db;
 
+import com.bercut.sa.parentalctl.atlas.AtlasProvider;
 import com.bercut.sa.parentalctl.logs.LoggerText;
-import com.bercut.sa.parentalctl.rest.Procedure;
+import com.bercut.sa.parentalctl.rest.RestProcedure;
 import com.bercut.sa.parentalctl.rest.model.Children;
+import com.bercut.sa.parentalctl.rest.model.Flags;
 import com.bercut.sa.parentalctl.rest.model.Msisdn;
+import com.bercut.sa.parentalctl.soap.SoapProcedure;
 import com.bercut.sa.parentalctl.utils.SqlUtils;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnRequestType;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
@@ -14,80 +17,116 @@ import org.springframework.stereotype.Component;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Date;
 
 /**
  * Created by haimin-a on 22.03.2019.
  */
 
 @Component
-public class DbServiceImpl implements RestDbService, SoapDbService {
+public class DbServiceImpl implements DbService {
 
     private final SqlUtils sqlUtils;
+    private final AtlasProvider atlasProvider;
 
     @Autowired
-    public DbServiceImpl(SqlUtils sqlUtils) {
+    public DbServiceImpl(SqlUtils sqlUtils, AtlasProvider atlasProvider) {
         this.sqlUtils = sqlUtils;
+        this.atlasProvider = atlasProvider;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(DbServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(DbService.class);
 
     @Override
-    public GetMsisdnResponseType getMsisdn(String sessionId, GetMsisdnRequestType msisdn) {
-        return null;
+    public GetMsisdnResponseType getMsisdn(String sessionId, GetMsisdnRequestType msisdn) throws SQLException {
+        GetMsisdnResponseType response;
+        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
+              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, SoapProcedure.get_msisdn.toString(), 1) ) {
+            func.setString(1, msisdn.getMsisdn());
+            func.registerOutParameter(2, Types.VARCHAR);
+            func.registerOutParameter(3, Types.VARCHAR);
+            func.registerOutParameter(4, Types.VARCHAR);
+            func.registerOutParameter(5, Types.INTEGER);
+            func.registerOutParameter(6, Types.INTEGER);
+            long startExec = new Date().getTime();
+            func.execute();
+            long endExec = new Date().getTime();
+            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, SoapProcedure.get_msisdn, startExec - endExec);
+
+            response = new GetMsisdnResponseType(
+                    func.getString(2),
+                    func.getString(3),
+                    func.getString(4),
+                    func.getInt(5) == 1,
+                    func.getInt(6) == 1);
+        }
+        return response;
     }
 
     @Override
     public void addParent(String sessionId, Msisdn msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection();
-              CallableStatement func = sqlUtils.prepareSingleFunc(conn, Procedure.add_parent.toString(), 1) ) {
-            validateMsisdn(msisdn.getMsisdn());
+        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
+              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.add_parent.toString(), 1) ) {
             func.setString(1, msisdn.getMsisdn());
             long startExec = new Date().getTime();
             func.execute();
             long endExec = new Date().getTime();
-            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, Procedure.add_parent, startExec - endExec);
-        } catch (SQLException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, Procedure.add_parent, e.getMessage());
-            throw new SQLException(e);
+            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_parent, startExec - endExec);
         }
     }
 
     @Override
     public void addChild(String sessionId, Children children) throws SQLException {
-
+        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
+              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.add_children.toString(), 4) ) {
+            func.setString(1, children.getMsisdn());
+            func.setString(2, children.getParent());
+            func.setLong(3, children.getFwdAoc() ? 1 : 0);
+            func.setLong(4, children.getFwdPay() ? 1 : 0);
+            long startExec = new Date().getTime();
+            func.execute();
+            long endExec = new Date().getTime();
+            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_children, startExec - endExec);
+        }
     }
 
     @Override
     public void delParent(String sessionId, String msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection();
-              CallableStatement func = sqlUtils.prepareSingleFunc(conn, Procedure.delete_parent.toString(), 1) ) {
-            validateMsisdn(msisdn);
+        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
+              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.delete_parent.toString(), 1) ) {
             func.setString(1, msisdn);
             long startExec = new Date().getTime();
             func.execute();
             long endExec = new Date().getTime();
-            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, Procedure.delete_parent, startExec - endExec);
-        } catch (SQLException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, Procedure.delete_parent, e.getMessage());
-            logger.error(String.valueOf(e.getErrorCode()));
-            throw new SQLException(e.getMessage(), e.getSQLState(), e.getErrorCode());
+            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_parent, startExec - endExec);
         }
     }
 
     @Override
     public void delChild(String sessionId, String msisdn) throws SQLException {
-
+        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
+              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.delete_children.toString(), 1) ) {
+            func.setString(1, msisdn);
+            long startExec = new Date().getTime();
+            func.execute();
+            long endExec = new Date().getTime();
+            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_children, startExec - endExec);
+        }
     }
 
     @Override
-    public void setChild(String sessionId, Msisdn msisdn) throws SQLException {
-
-    }
-
-    private void validateMsisdn(String msisdn) throws SQLException {
-        if (!msisdn.startsWith("7") || msisdn.length() != 11)
-            throw new SQLException("Wrong msisdn", null, 20102);
+    public void setChild(String sessionId, String msisdn, Flags flags) throws SQLException {
+        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
+              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.set_children.toString(), 3) ) {
+            func.setString(1, msisdn);
+            func.setLong(2, flags.getFwdAoc() ? 1 : 0);
+            func.setLong(3, flags.getFwdPay() ? 1 : 0);
+            long startExec = new Date().getTime();
+            func.execute();
+            long endExec = new Date().getTime();
+            logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.set_children, startExec - endExec);
+        }
     }
 }

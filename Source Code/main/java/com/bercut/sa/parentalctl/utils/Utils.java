@@ -1,5 +1,6 @@
 package com.bercut.sa.parentalctl.utils;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -11,4 +12,17 @@ public class Utils {
         return UUID.randomUUID().toString();
     }
 
+    public static void validateMsisdn(String... msisdns) throws SQLException {
+        for (String msisdn : msisdns) {
+            if (!msisdn.startsWith("7") || msisdn.length() != 11)
+                throw new SQLException("Wrong msisdn", null, 20102);
+        }
+    }
+
+    public static void validateFlags(Boolean... booleans) throws SQLException {
+        for (Boolean bool : booleans) {
+            if (bool == null)
+                throw new SQLException("Wrong params", null, 20102);
+        }
+    }
 }
