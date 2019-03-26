@@ -28,12 +28,10 @@ import java.util.Date;
 @Component
 public class DbServiceImpl implements DbService {
 
-    private final SqlUtils sqlUtils;
     private final AtlasProvider atlasProvider;
 
     @Autowired
-    public DbServiceImpl(SqlUtils sqlUtils, AtlasProvider atlasProvider) {
-        this.sqlUtils = sqlUtils;
+    public DbServiceImpl(AtlasProvider atlasProvider) {
         this.atlasProvider = atlasProvider;
     }
 
@@ -42,8 +40,8 @@ public class DbServiceImpl implements DbService {
     @Override
     public GetMsisdnResponseType getMsisdn(String sessionId, GetMsisdnRequestType msisdn) throws SQLException {
         GetMsisdnResponseType response;
-        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
-              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, SoapProcedure.get_msisdn.toString(), 1) ) {
+        try ( Connection conn = SqlUtils.getConnection(atlasProvider);
+              CallableStatement func = SqlUtils.prepareSingleFunc(atlasProvider, conn, SoapProcedure.get_msisdn.toString(), 1) ) {
             func.setString(1, msisdn.getMsisdn());
             func.registerOutParameter(2, Types.VARCHAR);
             func.registerOutParameter(3, Types.VARCHAR);
@@ -67,8 +65,8 @@ public class DbServiceImpl implements DbService {
 
     @Override
     public void addParent(String sessionId, Msisdn msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
-              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.add_parent.toString(), 1) ) {
+        try ( Connection conn = SqlUtils.getConnection(atlasProvider);
+              CallableStatement func = SqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.add_parent.toString(), 1) ) {
             func.setString(1, msisdn.getMsisdn());
             long startExec = new Date().getTime();
             func.execute();
@@ -79,8 +77,8 @@ public class DbServiceImpl implements DbService {
 
     @Override
     public void addChild(String sessionId, Children children) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
-              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.add_children.toString(), 4) ) {
+        try ( Connection conn = SqlUtils.getConnection(atlasProvider);
+              CallableStatement func = SqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.add_children.toString(), 4) ) {
             func.setString(1, children.getMsisdn());
             func.setString(2, children.getParent());
             func.setLong(3, children.getFwdAoc() ? 1 : 0);
@@ -94,8 +92,8 @@ public class DbServiceImpl implements DbService {
 
     @Override
     public void delParent(String sessionId, String msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
-              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.delete_parent.toString(), 1) ) {
+        try ( Connection conn = SqlUtils.getConnection(atlasProvider);
+              CallableStatement func = SqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.delete_parent.toString(), 1) ) {
             func.setString(1, msisdn);
             long startExec = new Date().getTime();
             func.execute();
@@ -106,8 +104,8 @@ public class DbServiceImpl implements DbService {
 
     @Override
     public void delChild(String sessionId, String msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
-              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.delete_children.toString(), 1) ) {
+        try ( Connection conn = SqlUtils.getConnection(atlasProvider);
+              CallableStatement func = SqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.delete_children.toString(), 1) ) {
             func.setString(1, msisdn);
             long startExec = new Date().getTime();
             func.execute();
@@ -118,8 +116,8 @@ public class DbServiceImpl implements DbService {
 
     @Override
     public void setChild(String sessionId, String msisdn, Flags flags) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection(atlasProvider);
-              CallableStatement func = sqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.set_children.toString(), 3) ) {
+        try ( Connection conn = SqlUtils.getConnection(atlasProvider);
+              CallableStatement func = SqlUtils.prepareSingleFunc(atlasProvider, conn, RestProcedure.set_children.toString(), 3) ) {
             func.setString(1, msisdn);
             func.setLong(2, flags.getFwdAoc() ? 1 : 0);
             func.setLong(3, flags.getFwdPay() ? 1 : 0);

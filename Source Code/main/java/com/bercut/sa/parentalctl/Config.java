@@ -2,8 +2,8 @@ package com.bercut.sa.parentalctl;
 
 import com.bercut.sa.parentalctl.atlas.AtlasProviderImpl;
 import com.bercut.sa.parentalctl.db.DbService;
+import com.bercut.sa.parentalctl.db.DbServiceImpl;
 import com.bercut.sa.parentalctl.rest.ParentalctlRestController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,17 +17,21 @@ import org.springframework.core.annotation.Order;
 @ComponentScan(basePackages = "com.bercut.sa.parentalctl")
 public class Config {
 
-    private final DbService dbService;
+    private AtlasProviderImpl atlasProvider;
+    private DbService dbService;
 
-    @Autowired
-    public Config(DbService dbService) {
-        this.dbService = dbService;
-    }
 
     @Bean
     @Order(value = Ordered.HIGHEST_PRECEDENCE)
     public AtlasProviderImpl atlasFirst() {
-        return new AtlasProviderImpl();
+        this.atlasProvider = new AtlasProviderImpl();
+        return atlasProvider;
+    }
+
+    @Bean
+    public DbService dbService() {
+        this.dbService = new DbServiceImpl(atlasProvider);
+        return dbService;
     }
 
     @Bean

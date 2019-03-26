@@ -21,7 +21,7 @@ public class SqlUtils {
 
     private final static Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
-    public Connection getConnection(AtlasProvider atlasProvider) throws SQLException {
+    public static Connection getConnection(AtlasProvider atlasProvider) throws SQLException {
         try {
             Context context = new InitialContext();
             DataSource ds = (DataSource) context.lookup(atlasProvider.getDataSource());
@@ -31,7 +31,7 @@ public class SqlUtils {
         }
     }
 
-    public CallableStatement prepareSingleFunc(AtlasProvider atlasProvider, Connection conn, String funcName, int paramCnt) throws SQLException {
+    public static CallableStatement prepareSingleFunc(AtlasProvider atlasProvider, Connection conn, String funcName, int paramCnt) throws SQLException {
         StringBuilder sbSql = new StringBuilder().append("{ call ").append(atlasProvider.getSchema()).append(".")
                 .append(funcName).append("(");
         for (int i = 0; i < paramCnt; i += 1) {
@@ -43,5 +43,25 @@ public class SqlUtils {
         sbSql.append(")}");
         logger.debug("Prepare function : " + sbSql.toString());
         return conn.prepareCall(sbSql.toString());
+    }
+
+    public static void commit(Connection conn){
+        if (conn != null){
+            try {
+                conn.commit();
+            } catch (SQLException e) {
+                logger.warn(e.toString());
+            }
+        }
+    }
+
+    public static void rollback(Connection conn){
+        if (conn != null){
+            try {
+                conn.rollback();
+            } catch (SQLException e) {
+                logger.warn(e.toString());
+            }
+        }
     }
 }
