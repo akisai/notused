@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+group 'com.berut.sa'
+//version '1.0'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def springVersion = '4.3.12.RELEASE'
+
+    compile group: 'org.springframework', name: 'spring-web', version: springVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+
+    compileOnly files(
+            'libs/atlasapiiface.jar',
+            'libs/atlasapilib.jar',
+            'libs/atlasomiface.jar',
+            'libs/bercut-common.jar',
+            'libs/mibsdk.jar',
+            'libs/rtsib-rt.jar',
+            'libs/servlet-api.jar',
+            'libs/SAClientLib.jar',
+            'libs/httpclient-4.5.3.jar',
+            'libs/httpcore-4.4.6.jar',
+            'libs/jackson-core-2.9.2.jar',
+            'libs/jackson-databind-2.9.2.jar',
+            'libs/jackson-annotations-2.9.2.jar'
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+sourceSets {
+    main.java.srcDirs = ['Source Code/main/java', 'Source Code/gen/java']
+    test.java.srcDirs = ['Source Code/test/java']
+}
+
+webAppDirName = 'Source Code/web'
+
+war {
+    baseName = 'sa-parentalctl'
+}

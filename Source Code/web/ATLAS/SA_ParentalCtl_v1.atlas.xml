@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpecializedAdapter name="ParentalCtl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation="http://plv3.office.bercut.ru/atlas/3.0/xsd/STD_PlV3_SpecializedAdapterDescriptor_v3.xsd">
+
+    <About name="ParentalCtl" version="1.0" vendor="Bercut LLC.">
+        <Ru/>
+        <En/>
+    </About>
+    <Core name="Core">
+        <Description>
+            <Ru>Параметры и настройки ядра компонента, реализующего базовую логику работы</Ru>
+            <En>The component kernel parameters and settings</En>
+        </Description>
+        <!--=========== Config ===========-->
+        <Config name="Configuration">
+            <Description>
+                <Ru>Настройки общей конфигурации компонента</Ru>
+                <En>General component settings</En>
+            </Description>
+            <LogLevel name="LogLevel" required="true">
+                <Description>
+                    <Ru>Уровень регистрации событий: Debug — сообщения всех уровней; Minimum — сообщения уровня minimum;
+                        Medium — сообщения уровней medium и minimum; Maximum — сообщения уровней medium, minimum и
+                        maximum
+                    </Ru>
+                    <En>Log Level</En>
+                </Description>
+                <Enum list_of_values="minimum medium maximum debug" default_value="minimum"/>
+            </LogLevel>
+            <StatisticsInterval name="StatisticsInterval" required="true">
+                <Description>
+                    <Ru>Интервал обновления статистики, в секундах</Ru>
+                    <En>Statistics update interval (sec.)</En>
+                </Description>
+                <Int default_value="60" max_value="1800" min_value="0" view="dec"/>
+            </StatisticsInterval>
+        </Config>
+        <!--========== Statistics ==========-->
+        <Statistics name="Statistics">
+
+            <Description>
+                <Ru>Общая статистика по работе компонента</Ru>
+                <En>General component statistics</En>
+            </Description>
+
+            <SimpleVariable name="AddParentUri">
+                <Description>
+                    <Ru>URI на котором обрабатываются addParent запросы. Формируется из
+                        localhost:port/sa-parentalctl/значение переменной
+                    </Ru>
+                    <En>callback uri</En>
+                </Description>
+                <String/>
+            </SimpleVariable>
+
+            <Status name="Status" aggregation_method="state">
+                <Description>
+                    <Ru>Текущий статус доступности компонента</Ru>
+                    <En>Component accessibility status</En>
+                </Description>
+                <Enum list_of_values="undefined turnedoff crashed nonoperating available"/>
+            </Status>
+
+            <Performance name="Performance">
+                <Description>
+                    <Ru>Показатели производительности</Ru>
+                    <En>Performance indicators</En>
+                </Description>
+            </Performance>
+
+            <Quality name="Quality">
+                <Description>
+                    <Ru>Индикаторы качества</Ru>
+                    <En>Quality indicators</En>
+                </Description>
+            </Quality>
+
+        </Statistics>
+        <Alarms>
+            <EventAlarm name="Indeterminate" severity="indeterminate" type="Processing">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+                <RaisedAlarm>
+
+                    <MessageText>
+                        <Ru>$Parameter$</Ru>
+                        <En>$Parameter$</En>
+                    </MessageText>
+
+                    <Parameter name="Parameter" type="string">
+                        <Description>
+                            <Ru>Сообщение</Ru>
+                            <En>Message</En>
+                        </Description>
+                    </Parameter>
+                    <Cause name="Cause" type="string">
+                        <Description>
+                            <Ru/>
+                            <En/>
+                        </Description>
+                    </Cause>
+                </RaisedAlarm>
+            </EventAlarm>
+
+            <EventAlarm name="Warning" severity="warning" type="Processing">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+                <RaisedAlarm>
+
+                    <MessageText>
+                        <Ru>$Parameter$</Ru>
+                        <En>$Parameter$</En>
+                    </MessageText>
+
+                    <Parameter name="Parameter" type="string">
+                        <Description>
+                            <Ru>Сообщение</Ru>
+                            <En>Message</En>
+                        </Description>
+                    </Parameter>
+                    <Cause name="Cause" type="string">
+                        <Description>
+                            <Ru/>
+                            <En/>
+                        </Description>
+                    </Cause>
+                </RaisedAlarm>
+            </EventAlarm>
+
+            <EventAlarm name="MinorError" severity="minor" type="Processing">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+                <RaisedAlarm>
+
+                    <MessageText>
+                        <Ru>$Parameter$</Ru>
+                        <En>$Parameter$</En>
+                    </MessageText>
+
+                    <Parameter name="Parameter" type="string">
+                        <Description>
+                            <Ru>Сообщение</Ru>
+                            <En>Message</En>
+                        </Description>
+                    </Parameter>
+                    <Cause name="Cause" type="string">
+                        <Description>
+                            <Ru/>
+                            <En/>
+                        </Description>
+                    </Cause>
+                </RaisedAlarm>
+            </EventAlarm>
+
+            <EventAlarm name="MajorError" severity="major" type="Processing">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+                <RaisedAlarm>
+
+                    <MessageText>
+                        <Ru>$Parameter$</Ru>
+                        <En>$Parameter$</En>
+                    </MessageText>
+
+                    <Parameter name="Parameter" type="string">
+                        <Description>
+                            <Ru>Сообщение</Ru>
+                            <En>Message</En>
+                        </Description>
+                    </Parameter>
+                    <Cause name="Cause" type="string">
+                        <Description>
+                            <Ru/>
+                            <En/>
+                        </Description>
+                    </Cause>
+                </RaisedAlarm>
+            </EventAlarm>
+
+            <EventAlarm name="Critical" severity="critical" type="Processing">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+                <RaisedAlarm>
+
+                    <MessageText>
+                        <Ru>$Parameter$</Ru>
+                        <En>$Parameter$</En>
+                    </MessageText>
+
+                    <Parameter name="Parameter" type="string">
+                        <Description>
+                            <Ru>Сообщение</Ru>
+                            <En>Message</En>
+                        </Description>
+                    </Parameter>
+                    <Cause name="Cause" type="string">
+                        <Description>
+                            <Ru/>
+                            <En/>
+                        </Description>
+                    </Cause>
+                </RaisedAlarm>
+            </EventAlarm>
+
+
+        </Alarms>
+        <!-- Traces-->
+        <Traces>
+            <CommonParameter name="Message" type="string">
+                <Description>
+                    <Ru>Код ошибки</Ru>
+                    <En>Error code</En>
+                </Description>
+            </CommonParameter>
+
+            <EventTrace level="debug" name="Debug">
+                <Description>
+                    <Ru>Message</Ru>
+                    <En>Message</En>
+                </Description>
+                <MessageText>
+                    <Ru>$Message$</Ru>
+                    <En>$Message$</En>
+                </MessageText>
+            </EventTrace>
+
+            <EventTrace level="minimum" name="Minimum">
+                <Description>
+                    <Ru>Message</Ru>
+                    <En>Message</En>
+                </Description>
+                <MessageText>
+                    <Ru>$Message$</Ru>
+                    <En>$Message$</En>
+                </MessageText>
+            </EventTrace>
+
+            <EventTrace level="medium" name="Medium">
+                <Description>
+                    <Ru>Message</Ru>
+                    <En>Message</En>
+                </Description>
+                <MessageText>
+                    <Ru>$Message$</Ru>
+                    <En>$Message$</En>
+                </MessageText>
+            </EventTrace>
+
+            <EventTrace level="maximum" name="Maximum">
+                <Description>
+                    <Ru>Message</Ru>
+                    <En>Message</En>
+                </Description>
+                <MessageText>
+                    <Ru>$Message$</Ru>
+                    <En>$Message$</En>
+                </MessageText>
+            </EventTrace>
+
+        </Traces>
+
+    </Core>
+
+    <AbstractObjectInterface uri="http://127.0.0.1" name="AOI" version="1.0"/>
+    <ClientAccessPoint name="DataSource" access_point_usage="mandatory">
+        <Description>
+            <Ru>Точка доступа для осуществления подключений к БД</Ru>
+            <En>The access point for connections to the database</En>
+        </Description>
+        <ProtocolLayers name="ProtocolLayers">
+            <Description>
+                <Ru/>
+                <En/>
+            </Description>
+        </ProtocolLayers>
+        <ClientStatistics name="Statistics">
+            <Description>
+                <Ru>Статистика точки доступа</Ru>
+                <En>Access point statistics</En>
+            </Description>
+            <Status aggregation_method="state" name="Status">
+                <Description>
+                    <Ru>Текущий статус доступности компонента. Undefined ― доступность компонента не определена.
+                        Turnedoff ― компонент выключен. Crashed ― произошел сбой в работе компонента, компонент не
+                        доступен. Nonoperating ― компонент не функционирует. Available ― компонент доступен.
+                    </Ru>
+                    <En>Сomponent accessibility notificationStatus. Undefined ― the component notificationStatus is
+                        unknown. Turnedoff ― кthe component is stopped. Crashed ― the component is not accessible due to
+                        a failure. Nonoperating ― the component is not operating. Available ― the component is
+                        accessible.
+                    </En>
+                </Description>
+                <Enum list_of_values="undefined turnedoff available"/>
+            </Status>
+            <Performance name="Performance">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+
+                <QueryRateAvg name="QueryRateAvg" aggregation_method="average" base_var_name="QueryRate"
+                              rate_interval="second">
+                    <Description>
+                        <Ru>Среднее значение количества запросов за секунду</Ru>
+                        <En>Average number of requests per second</En>
+                    </Description>
+                    <Double/>
+                </QueryRateAvg>
+                <QueryRateMax name="QueryRateMax" aggregation_method="maximum" base_var_name="QueryRate"
+                              rate_interval="second">
+                    <Description>
+                        <Ru>Максимальное значение количества входящих запросов, в единицах за секунду</Ru>
+                        <En>Maximum number of incoming requests per second</En>
+                    </Description>
+                    <Double/>
+                </QueryRateMax>
+            </Performance>
+            <Quality name="Quality">
+                <Description>
+                    <Ru>Статистика качественных показателей сервиса</Ru>
+                    <En>Quality statistics</En>
+                </Description>
+
+                <SimpleVariable name="SqlQueryMsSum" aggregation_method="sum" base_var_name="SqlQueryMs">
+                    <Dword64/>
+                </SimpleVariable>
+                <SimpleVariable name="SqlQueryMsMax" aggregation_method="maximum" base_var_name="SqlQueryMs">
+                    <Dword64/>
+                </SimpleVariable>
+                <SimpleVariable name="SqlQueryMsAvg" aggregation_method="average" base_var_name="SqlQueryMs">
+                    <Dword64/>
+                </SimpleVariable>
+                <SimpleVariable name="SqlQueryMsMin" aggregation_method="minimum" base_var_name="SqlQueryMs">
+                    <Dword64/>
+                </SimpleVariable>
+                <SimpleVariable name="SqlQueryMsCount" aggregation_method="counter" base_var_name="SqlQueryMs">
+                    <Dword64/>
+                </SimpleVariable>
+                <SimpleVariable name="SqlQueryMsAvgSpeed" aggregation_method="average speed" base_var_name="SqlQueryMs">
+                    <Dword64/>
+                </SimpleVariable>
+
+                <RejectedQueries name="RejectedQueries" admin_level="maintenance" aggregation_method="sum">
+                    <Description>
+                        <Ru>Количество отклоненных входящих запросов</Ru>
+                        <En>Number of rejected incoming</En>
+                    </Description>
+                    <Dword64/>
+                </RejectedQueries>
+                <QueryResponseTimeAvg name="QueryResponseTimeAvg" aggregation_method="average"
+                                      base_var_name="QueryResponseTime">
+                    <Description>
+                        <Ru>Среднее значение времени ответа на входящий запрос, в миллисекундах</Ru>
+                        <En>Average response time (msec.)</En>
+                    </Description>
+                    <Double/>
+                </QueryResponseTimeAvg>
+                <QueryResponseTimeMax name="QueryResponseTimeMax" aggregation_method="maximum"
+                                      base_var_name="QueryResponseTime">
+                    <Description>
+                        <Ru>Максимальное значение времени ответа на входящий запрос, в миллисекундах</Ru>
+                        <En>Maximum response time (msec.)</En>
+                    </Description>
+                    <Double/>
+                </QueryResponseTimeMax>
+            </Quality>
+        </ClientStatistics>
+        <Connections name="ConnectionsList">
+            <Description>
+                <Ru>Подключения к базам данных</Ru>
+                <En>Data Base connections</En>
+            </Description>
+            <InstanceName required="true" name="ConnectionSystemName">
+                <Description>
+                    <Ru>Системное имя связи</Ru>
+                    <En>System name of connection</En>
+                </Description>
+                <String/>
+            </InstanceName>
+            <ProtocolLayers name="ProtocolLayers">
+                <Description>
+                    <Ru/>
+                    <En/>
+                </Description>
+                <ProtocolLayer ReferenceToSpecifications="NO_REF" name="JDBC">
+                    <Description>
+                        <Ru/>
+                        <En/>
+                    </Description>
+                    <SimpleVariable name="DataSourceName">
+                        <Description>
+                            <Ru>jndi-имя источника данных</Ru>
+                            <En>DataSource jndi name</En>
+                        </Description>
+                        <String/>
+                    </SimpleVariable>
+                    <SimpleVariable name="SchemaName">
+                        <Description>
+                            <Ru>Имя схемы</Ru>
+                            <En>Schema name</En>
+                        </Description>
+                        <String/>
+                    </SimpleVariable>
+                    <Protocol name="Protocol">
+                        <Description>
+                            <Ru/>
+                            <En/>
+                        </Description>
+                        <Enum list_of_values="JDBC" default_value="JDBC"/>
+                    </Protocol>
+                </ProtocolLayer>
+            </ProtocolLayers>
+        </Connections>
+    </ClientAccessPoint>
+    <IncludedStdLibrary required="true" name="JavaMibSdk" version="1.1"/>
+</SpecializedAdapter>
