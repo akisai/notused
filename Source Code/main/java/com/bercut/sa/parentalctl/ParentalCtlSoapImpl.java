@@ -4,6 +4,7 @@ import com.bercut.lwsacontainer.stuff.MessageBusProvider;
 import com.bercut.mb.sdk.MessageBus;
 import com.bercut.mb.sdk.MessageBusFault;
 import com.bercut.mb.sdk.request.ServerRequestParameters;
+import com.bercut.sa.parentalctl.atlas.AtlasProvider;
 import com.bercut.sa.parentalctl.db.DbService;
 import com.bercut.sa.parentalctl.utils.Utils;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnRequestType;
@@ -31,11 +32,13 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
 
     private final ServletContext servletContext;
     private final DbService dbService;
+    private AtlasProvider atlas;
 
     @Autowired
-    public ParentalCtlSoapImpl(ServletContext servletContext, DbService dbService) {
+    public ParentalCtlSoapImpl(ServletContext servletContext, DbService dbService, AtlasProvider atlas) {
         this.servletContext = servletContext;
         this.dbService = dbService;
+        this.atlas = atlas;
     }
 
     @PostConstruct

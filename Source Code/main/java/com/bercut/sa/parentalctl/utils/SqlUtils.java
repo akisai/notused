@@ -15,7 +15,6 @@ import java.sql.SQLException;
 /**
  * Created by haimin-a on 22.03.2019.
  */
-@Component
 public class SqlUtils {
 
 

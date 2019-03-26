@@ -1,5 +1,6 @@
 package com.bercut.sa.parentalctl.rest;
 
+import com.bercut.sa.parentalctl.atlas.AtlasProvider;
 import com.bercut.sa.parentalctl.db.DbService;
 import com.bercut.sa.parentalctl.logs.LoggerText;
 import com.bercut.sa.parentalctl.rest.model.Children;
@@ -22,10 +23,12 @@ import java.sql.SQLException;
 public class ParentalctlRestController {
 
     private DbService dbService;
+    private AtlasProvider atlas;
 
     @Autowired
-    public ParentalctlRestController(DbService dbService) {
+    public ParentalctlRestController(DbService dbService, AtlasProvider atlas) {
         this.dbService = dbService;
+        this.atlas = atlas;
     }
 
     private final Logger logger = LoggerFactory.getLogger(ParentalctlRestController.class);

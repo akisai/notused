@@ -18,8 +18,6 @@ import org.springframework.core.annotation.Order;
 public class Config {
 
     private AtlasProviderImpl atlasProvider;
-    private DbService dbService;
-
 
     @Bean
     @Order(value = Ordered.HIGHEST_PRECEDENCE)
@@ -28,14 +26,4 @@ public class Config {
         return atlasProvider;
     }
 
-    @Bean
-    public DbService dbService() {
-        this.dbService = new DbServiceImpl(atlasProvider);
-        return dbService;
-    }
-
-    @Bean
-    public ParentalctlRestController parentalctlRestController() {
-        return new ParentalctlRestController(dbService);
-    }
 }

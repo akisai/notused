@@ -60,6 +60,7 @@ public class DbServiceImpl implements DbService {
                     func.getInt(5) == 1,
                     func.getInt(6) == 1);
         }
+
         return response;
     }
 
