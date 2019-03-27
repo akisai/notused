@@ -19,5 +19,4 @@ public class Config {
     public AtlasProviderImpl atlasFirst() {
         return new AtlasProviderImpl();
     }
-
 }

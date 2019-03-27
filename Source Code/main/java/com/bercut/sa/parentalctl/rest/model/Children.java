@@ -49,8 +49,8 @@ public class Children {
     @Override
     public String toString() {
         return "msisdn=" + msisdn +
-                ", parent=" + parent +
-                ", fwdAoc=" + fwdAoc +
-                ", fwdPay=" + fwdPay;
+                ",\nparent=" + parent +
+                ",\nfwdAoc=" + fwdAoc +
+                ",\nfwdPay=" + fwdPay;
     }
 }

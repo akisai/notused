@@ -5,8 +5,8 @@ package com.bercut.sa.parentalctl.rest;
  */
 public enum RestProcedure {
     add_parent,
-    add_children,
+    add_child,
     delete_parent,
-    delete_children,
-    set_children
+    delete_child,
+    set_child
 }

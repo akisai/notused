@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/v1")
@@ -38,11 +39,16 @@ public class ParentalctlRestController {
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.CREATED;
         if (logger.isDebugEnabled()) {
-            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.add_parent, sessionId, msisdn.toString());
+            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.add_parent, sessionId, msisdn);
         }
         try {
             Utils.validateMsisdn(msisdn.getMsisdn());
+            long startExec = new Date().getTime();
             dbService.addParent(sessionId, msisdn);
+            long endExec = new Date().getTime();
+            if (logger.isDebugEnabled()) {
+                logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_parent, endExec - startExec);
+            }
         } catch (SQLException e) {
             logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.add_parent, e.getMessage());
             status = parseError(e);
@@ -56,16 +62,21 @@ public class ParentalctlRestController {
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.CREATED;
         if (logger.isDebugEnabled()) {
-            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.add_children, sessionId, children.toString());
+            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.add_child, sessionId, children.toString());
         }
         try {
             Utils.validateMsisdn(children.getMsisdn(), children.getParent());
             Utils.validateFlags(children.getFwdAoc(), children.getFwdPay());
+            long startExec = new Date().getTime();
             dbService.addChild(sessionId, children);
+            long endExec = new Date().getTime();
+            if (logger.isDebugEnabled()) {
+                logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_child, endExec - startExec);
+            }
         } catch (SQLException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.add_children, e.getMessage());
+            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
             status = parseError(e);
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_children, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_child, status);
         }
         return new ResponseEntity(status);
     }
@@ -75,11 +86,16 @@ public class ParentalctlRestController {
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.NO_CONTENT;
         if (logger.isDebugEnabled()) {
-            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.delete_parent, sessionId, "msisdn= " + msisdn);
+            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.delete_parent, sessionId, "msisdn=" + msisdn);
         }
         try {
             Utils.validateMsisdn(msisdn);
+            long startExec = new Date().getTime();
             dbService.delParent(sessionId, msisdn);
+            long endExec = new Date().getTime();
+            if (logger.isDebugEnabled()) {
+                logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_parent, endExec - startExec);
+            }
         } catch (SQLException e) {
             logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.delete_parent, e.getMessage());
             status = parseError(e);
@@ -93,15 +109,20 @@ public class ParentalctlRestController {
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.NO_CONTENT;
         if (logger.isDebugEnabled()) {
-            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.delete_children, sessionId, "msisdn= " + msisdn);
+            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.delete_child, sessionId, "msisdn=" + msisdn);
         }
         try {
             Utils.validateMsisdn(msisdn);
+            long startExec = new Date().getTime();
             dbService.delChild(sessionId, msisdn);
+            long endExec = new Date().getTime();
+            if (logger.isDebugEnabled()) {
+                logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_child, endExec - startExec);
+            }
         } catch (SQLException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.delete_children, e.getMessage());
+            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.delete_child, e.getMessage());
             status = parseError(e);
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_children, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_child, status);
         }
         return new ResponseEntity(status);
     }
@@ -111,16 +132,21 @@ public class ParentalctlRestController {
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.OK;
         if (logger.isDebugEnabled()) {
-            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.set_children, sessionId, "msisdn= " + msisdn);
+            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.set_child, sessionId, "msisdn=" + msisdn + "\n" + flags);
         }
         try {
             Utils.validateMsisdn(msisdn);
             Utils.validateFlags(flags.getFwdAoc(), flags.getFwdPay());
+            long startExec = new Date().getTime();
             dbService.setChild(sessionId, msisdn, flags);
+            long endExec = new Date().getTime();
+            if (logger.isDebugEnabled()) {
+                logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.set_child, endExec - startExec);
+            }
         } catch (SQLException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.set_children, e.getMessage());
+            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.set_child, e.getMessage());
             status = parseError(e);
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.set_children, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.set_child, status);
         }
         return new ResponseEntity(status);
     }
@@ -129,7 +155,7 @@ public class ParentalctlRestController {
         switch (e.getErrorCode()) {
             case 20100:
                 return HttpStatus.NOT_ACCEPTABLE; //406
-            case 20101:
+            case 1://20101:
                 return HttpStatus.CONFLICT; //409
             case 20102:
                 return HttpStatus.BAD_REQUEST; //400

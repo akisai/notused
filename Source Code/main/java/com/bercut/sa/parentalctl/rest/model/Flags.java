@@ -31,6 +31,6 @@ public class Flags {
     @Override
     public String toString() {
         return "fwdAoc=" + fwdAoc +
-                ", fwdPay=" + fwdPay;
+                ",\nfwdPay=" + fwdPay;
     }
 }

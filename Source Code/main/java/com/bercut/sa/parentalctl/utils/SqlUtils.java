@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -21,7 +20,6 @@ public class SqlUtils {
 
 
     private final static Logger logger = LoggerFactory.getLogger(SqlUtils.class);
-
 
     private final AtlasProvider atlasProvider;
 
@@ -38,20 +36,6 @@ public class SqlUtils {
         } catch (Throwable e) {
             throw new SQLException("Connection refused", e);
         }
-    }
-
-    public CallableStatement prepareSingleFunc(Connection conn, String funcName, int paramCnt) throws SQLException {
-        StringBuilder sbSql = new StringBuilder().append("{ call ").append(atlasProvider.getSchema()).append(".")
-                .append(funcName).append("(");
-        for (int i = 0; i < paramCnt; i += 1) {
-            if (i != 0) {
-                sbSql.append(", ");
-            }
-            sbSql.append("?");
-        }
-        sbSql.append(")}");
-        logger.debug("Prepare function : " + sbSql.toString());
-        return conn.prepareCall(sbSql.toString());
     }
 
     public void commit(Connection conn) {
