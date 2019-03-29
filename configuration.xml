@@ -33,7 +33,7 @@
         <component name="jackson-core" mainstream="2.9" />
         <component name="jackson-databind" mainstream="2.9" />
         <!-- jackson end -->
-		<!-- spring start -->
+        <!-- spring start -->
         <component name="Spring Framework 4.3.12.RELEASE spring-web" mainstream="4.3" />
         <component name="Spring Framework 4.3.12.RELEASE spring-core" mainstream="4.3" />
         <component name="Spring Framework 4.3.12.RELEASE spring-aop" mainstream="4.3" />
@@ -43,7 +43,8 @@
         <component name="Spring Framework 4.3.12.RELEASE spring-tx" mainstream="4.3" />
         <component name="Spring Framework 4.3.12.RELEASE spring-expression" mainstream="4.3" />
         <component name="Spring Framework 4.3.12.RELEASE spring-orm" mainstream="4.3" />
-		<!-- spring end -->
+        <!-- spring end -->
+        <component name="Tele2 InVoice INV_TARIFF" mainstream="4.12" />
       </uses>
       <interface />
       <wsdl-codegen>
