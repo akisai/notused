@@ -5,5 +5,4 @@ package com.bercut.sa.parentalctl.atlas;
  */
 public interface AtlasProvider {
     String getDataSource();
-    String getSchema();
 }

@@ -149,15 +149,4 @@ public class AtlasProviderImpl extends AppenderSkeleton implements AtlasProvider
                 .readValue()
                 .getString();
     }
-
-    @Override
-    public String getSchema() {
-        return clientAccessPoint
-                .getConnection(CONNECTION_NAME)
-                .getProtocolLayers()
-                .getProtocolLayer("JDBC")
-                .getVariable("SchemaName")
-                .readValue()
-                .getString();
-    }
 }

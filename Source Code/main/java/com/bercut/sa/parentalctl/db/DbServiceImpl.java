@@ -1,6 +1,5 @@
 package com.bercut.sa.parentalctl.db;
 
-import com.bercut.sa.parentalctl.cache.CacheGetMsisdn;
 import com.bercut.sa.parentalctl.logs.LoggerText;
 import com.bercut.sa.parentalctl.rest.RestProcedure;
 import com.bercut.sa.parentalctl.rest.model.Children;
@@ -29,12 +28,10 @@ public class DbServiceImpl implements DbService {
 
     private final Logger logger = LoggerFactory.getLogger(DbService.class);
     private final SqlUtils sqlUtils;
-    private final CacheGetMsisdn cacheGetMsisdn;
 
     @Autowired
-    public DbServiceImpl(SqlUtils sqlUtils, CacheGetMsisdn cacheGetMsisdn) {
+    public DbServiceImpl(SqlUtils sqlUtils) {
         this.sqlUtils = sqlUtils;
-        this.cacheGetMsisdn = cacheGetMsisdn;
     }
 
     @Override
@@ -180,12 +177,12 @@ public class DbServiceImpl implements DbService {
     @Override
     @Cacheable(cacheNames = "msisdn", key = "#msisdn")
     public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws SQLException {
-        GetMsisdnResponseType response;
-        response = cacheGetMsisdn.getGetMsisdnCache().get(msisdn);
+        GetMsisdnResponseType response = new GetMsisdnResponseType();
+        /*response = cacheGetMsisdn.getGetMsisdnCache().get(msisdn);
         if (response == null) {
             response = new GetMsisdnResponseType();
         } else
-            return response;
+            return response;*/
         try ( Connection conn = sqlUtils.getConnection() ) {
             try ( PreparedStatement psGetParent = conn.prepareStatement(SQLQuery.GET_PARENT) ) {
                 psGetParent.setString(1, msisdn);

@@ -1,3 +1,4 @@
+/*
 package com.bercut.sa.parentalctl.cache;
 
 import com.bercut.sa.parentalctl.db.SQLQuery;
@@ -16,9 +17,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+*/
 /**
  * Created by haimin-a on 27.03.2019.
- */
+ *//*
+
 @Component
 @EnableScheduling
 public class CacheGetMsisdn {
@@ -76,3 +79,4 @@ public class CacheGetMsisdn {
         logger.warn("Updating cache done, size: " + getMsisdnCache.size());
     }
 }
+*/
