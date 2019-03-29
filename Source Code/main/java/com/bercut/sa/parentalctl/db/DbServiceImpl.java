@@ -11,7 +11,6 @@ import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -175,7 +174,6 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    @Cacheable(cacheNames = "msisdn", key = "#msisdn")
     public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws SQLException {
         GetMsisdnResponseType response = new GetMsisdnResponseType();
         /*response = cacheGetMsisdn.getGetMsisdnCache().get(msisdn);

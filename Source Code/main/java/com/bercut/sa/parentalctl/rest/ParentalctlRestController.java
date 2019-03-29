@@ -58,7 +58,7 @@ public class ParentalctlRestController {
     }
 
     @PostMapping("/child")
-    public ResponseEntity addChildren(@RequestBody Children children) {
+    public ResponseEntity addChild(@RequestBody Children children) {
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.CREATED;
         if (logger.isDebugEnabled()) {
@@ -66,6 +66,9 @@ public class ParentalctlRestController {
         }
         try {
             Utils.validateMsisdn(children.getMsisdn(), children.getParent());
+            if(children.getMsisdn().equals(children.getParent())) {
+                throw new SQLException("Equals msisdn", null, 20102);
+            }
             Utils.validateFlags(children.getFwdAoc(), children.getFwdPay());
             long startExec = new Date().getTime();
             dbService.addChild(sessionId, children);

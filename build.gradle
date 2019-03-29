@@ -39,7 +39,6 @@ dependencies {
     )
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.springframework', name: 'spring-test', version: springVersion
-    testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '4.2.11.RELEASE'
     testCompileOnly files (
         'libs/atlasapiiface.jar',
         'libs/atlasapilib.jar',

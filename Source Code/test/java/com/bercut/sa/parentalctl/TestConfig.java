@@ -3,7 +3,7 @@ package com.bercut.sa.parentalctl;
 import com.bercut.sa.parentalctl.atlas.AtlasProvider;
 import com.bercut.sa.parentalctl.atlas.AtlasProviderImplTest;
 import com.bercut.sa.parentalctl.db.DbService;
-import com.bercut.sa.parentalctl.db.DbServiceImplTest;
+import com.bercut.sa.parentalctl.db.DbServiceImplTestImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +22,6 @@ public class TestConfig {
 
     @Bean
     DbService dbService() {
-        return new DbServiceImplTest();
+        return new DbServiceImplTestImpl();
     }
 }
