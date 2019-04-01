@@ -2,6 +2,7 @@ package com.bercut.sa.parentalctl;
 
 import com.bercut.mb.sdk.request.ServerRequestParameters;
 import com.bercut.sa.parentalctl.db.DbService;
+import com.bercut.sa.parentalctl.soap.ParentalCtlSoapImpl;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnRequestType;
 import com.bercut.wsdl.parentalctl.SqlExceptionException;
 import org.junit.Assert;

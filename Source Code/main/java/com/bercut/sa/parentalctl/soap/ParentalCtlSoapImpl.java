@@ -1,4 +1,4 @@
-package com.bercut.sa.parentalctl;
+package com.bercut.sa.parentalctl.soap;
 
 import com.bercut.lwsacontainer.stuff.MessageBusProvider;
 import com.bercut.mb.sdk.MessageBus;
@@ -6,7 +6,6 @@ import com.bercut.mb.sdk.MessageBusFault;
 import com.bercut.mb.sdk.request.ServerRequestParameters;
 import com.bercut.sa.parentalctl.db.DbService;
 import com.bercut.sa.parentalctl.logs.LoggerText;
-import com.bercut.sa.parentalctl.soap.SoapProcedure;
 import com.bercut.sa.parentalctl.utils.Utils;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnRequestType;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
