@@ -11,10 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.SQLException;
 
-import static com.bercut.sa.parentalctl.ParentalCtlSoapImplTest.CHILDREN;
-import static com.bercut.sa.parentalctl.ParentalCtlSoapImplTest.PARENT;
 import static com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest.CONFLICT;
 import static com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest.DUPLICATE;
+import static com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest.CHILDREN;
+import static com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest.PARENT;
 
 /**
  * Created by haimin-a on 29.03.2019.
