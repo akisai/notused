@@ -43,8 +43,7 @@ public class DbServiceImpl implements DbService {
                 }
                 try ( ResultSet rsGetChild = psGetChild.executeQuery() ) {
                     if (rsGetChild.next()) {
-                        if (rsGetChild.getString("MSISDN") != null)
-                            throw new SQLException("Number already assign to children", null, 20100);
+                        throw new SQLException("Number already assign to children", null, 20100);
                     }
                 }
             }

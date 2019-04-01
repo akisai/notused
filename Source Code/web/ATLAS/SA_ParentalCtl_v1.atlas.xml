@@ -43,12 +43,18 @@
                 <En>General component statistics</En>
             </Description>
 
-            <SimpleVariable name="AddParentUri">
+            <SimpleVariable name="ParentUri">
                 <Description>
-                    <Ru>URI на котором обрабатываются addParent запросы. Формируется из
-                        localhost:port/sa-parentalctl/значение переменной
-                    </Ru>
-                    <En>callback uri</En>
+                    <Ru>URI на котором обрабатываются Parent запросы. Формируется из localhost:port/sa-parentalctl/v1/parent</Ru>
+                    <En>Parent uri</En>
+                </Description>
+                <String/>
+            </SimpleVariable>
+
+            <SimpleVariable name="ChildUri">
+                <Description>
+                    <Ru>URI на котором обрабатываются Child запросы. Формируется из localhost:port/sa-parentalctl/v1/child</Ru>
+                    <En>Child uri</En>
                 </Description>
                 <String/>
             </SimpleVariable>

@@ -60,7 +60,8 @@ public class AtlasProviderImpl extends AppenderSkeleton implements AtlasProvider
                     setLogLevel(new_.getString());
                 }
             });
-            aom.getCoreStatistics().getGroup().getStatisticsVariable("AddParentUri").setStringValue("/addParent");
+            aom.getCoreStatistics().getGroup().getStatisticsVariable("ParentUri").setStringValue("/parent");
+            aom.getCoreStatistics().getGroup().getStatisticsVariable("ChildUri").setStringValue("/child");
             clientAccessPoint = aom.getClientAccessPoint("DataSource");
         } catch (AtlasException e) {
             e.printStackTrace();
