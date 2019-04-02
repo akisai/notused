@@ -34,8 +34,8 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    public void addParent(String sessionId, Msisdn msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection() ) {
+    public void addParent(String sessionId, Msisdn msisdn) throws DbException {
+        try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psGetChild = conn.prepareStatement(SQLQuery.GET_CHILD) ) {
                 psGetChild.setString(1, msisdn.getMsisdn());
                 if (logger.isDebugEnabled()) {
@@ -43,7 +43,7 @@ public class DbServiceImpl implements DbService {
                 }
                 try ( ResultSet rsGetChild = psGetChild.executeQuery() ) {
                     if (rsGetChild.next()) {
-                        throw new SQLException("Number already assign to children", null, 20100);
+                        throw new DbException("Number already assign to children", null, 20100);
                     }
                 }
             }
@@ -53,17 +53,19 @@ public class DbServiceImpl implements DbService {
                     logger.debug(LoggerText.SQL_REQUEST.getText(), sessionId, RestProcedure.add_parent, SQLQuery.INSERT_PARENT, msisdn);
                 }
                 psInsertParent.executeUpdate();
-                sqlUtils.commit(conn);
+                sqlUtils.commit(conn, sessionId);
             } catch (SQLException e) {
-                sqlUtils.rollback(conn);
-                throw e;
+                sqlUtils.rollback(conn, sessionId);
+                throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
             }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
         }
     }
 
     @Override
-    public void addChild(String sessionId, Children children) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection() ) {
+    public void addChild(String sessionId, Children children) throws DbException {
+        try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psGetParent = conn.prepareStatement(SQLQuery.GET_PARENT) ) {
                 psGetParent.setString(1, children.getMsisdn());
                 if (logger.isDebugEnabled()) {
@@ -71,7 +73,7 @@ public class DbServiceImpl implements DbService {
                 }
                 try ( ResultSet rsGetParent = psGetParent.executeQuery() ) {
                     if (rsGetParent.next()) {
-                        throw new SQLException("Number already assign to parent", null, 20100);
+                        throw new DbException("Number already assign to parent", null, 20100);
                     }
                 }
                 psGetParent.setString(1, children.getParent());
@@ -86,73 +88,68 @@ public class DbServiceImpl implements DbService {
                                 logger.debug(LoggerText.SQL_REQUEST.getText(), sessionId, RestProcedure.add_child, SQLQuery.GET_PARENT, children);
                             }
                             psInsertChild.executeUpdate();
-                            sqlUtils.commit(conn);
+                            sqlUtils.commit(conn, sessionId);
                         } catch (SQLException e) {
-                            sqlUtils.rollback(conn);
-                            throw e;
+                            sqlUtils.rollback(conn, sessionId);
+                            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
                         }
                     } else {
-                        throw new SQLException("Haven't requested parent", null, 20100);
+                        throw new DbException("Haven't requested parent", null, 20100);
                     }
                 }
             }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
         }
     }
 
     @Override
-    public void delParent(String sessionId, String msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection() ) {
-            try ( PreparedStatement psGetChildByPId = conn.prepareStatement(SQLQuery.GET_CHILD_BY_PID) ) {
-                psGetChildByPId.setString(1, msisdn);
-                if (logger.isDebugEnabled()) {
-                    logger.debug(LoggerText.SQL_REQUEST.getText(), sessionId, RestProcedure.delete_parent, SQLQuery.GET_CHILD_BY_PID, "msisdn=" + msisdn);
-                }
-                try ( ResultSet rsGetChildByPId = psGetChildByPId.executeQuery() ) {
-                    if (rsGetChildByPId.next()) {
-                        throw new SQLException("Parent has children yet", null, 20100);
-                    }
-                }
-            }
+    public void delParent(String sessionId, String msisdn) throws DbException {
+        try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psDeleteParent = conn.prepareStatement(SQLQuery.DELETE_PARENT) ) {
                 psDeleteParent.setString(1, msisdn);
                 if (logger.isDebugEnabled()) {
                     logger.debug(LoggerText.SQL_REQUEST.getText(), sessionId, RestProcedure.delete_parent, SQLQuery.DELETE_PARENT, "msisdn=" + msisdn);
                 }
                 if (psDeleteParent.executeUpdate() == 1) {
-                    sqlUtils.commit(conn);
+                    sqlUtils.commit(conn, sessionId);
                 } else {
-                    throw new SQLException("Haven't requested parent", null, 20103);
+                    throw new DbException("Haven't requested parent", null, 20103);
                 }
             } catch (SQLException e) {
-                sqlUtils.rollback(conn);
-                throw e;
+                sqlUtils.rollback(conn, sessionId);
+                throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
             }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
         }
     }
 
     @Override
-    public void delChild(String sessionId, String msisdn) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection() ) {
+    public void delChild(String sessionId, String msisdn) throws DbException {
+        try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psDeleteChildren = conn.prepareStatement(SQLQuery.DELETE_CHILD) ) {
                 psDeleteChildren.setString(1, msisdn);
                 if (logger.isDebugEnabled()) {
                     logger.debug(LoggerText.SQL_REQUEST.getText(), sessionId, RestProcedure.delete_child, SQLQuery.DELETE_CHILD, "msisdn=" + msisdn);
                 }
                 if (psDeleteChildren.executeUpdate() == 1) {
-                    sqlUtils.commit(conn);
+                    sqlUtils.commit(conn, sessionId);
                 } else {
-                    throw new SQLException("Haven't requested children", null, 20103);
+                    throw new DbException("Haven't requested children", null, 20103);
                 }
             } catch (SQLException e) {
-                sqlUtils.rollback(conn);
-                throw e;
+                sqlUtils.rollback(conn, sessionId);
+                throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
             }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
         }
     }
 
     @Override
-    public void setChild(String sessionId, String msisdn, Flags flags) throws SQLException {
-        try ( Connection conn = sqlUtils.getConnection() ) {
+    public void setChild(String sessionId, String msisdn, Flags flags) throws DbException {
+        try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psUpdateChild = conn.prepareStatement(SQLQuery.UPDATE_CHILD) ) {
                 psUpdateChild.setInt(1, flags.getFwdAoc() ? 1 : 0);
                 psUpdateChild.setInt(2, flags.getFwdPay() ? 1 : 0);
@@ -161,26 +158,23 @@ public class DbServiceImpl implements DbService {
                     logger.debug(LoggerText.SQL_REQUEST.getText(), sessionId, RestProcedure.set_child, SQLQuery.UPDATE_CHILD, "msisdn=" + msisdn + "\n" + flags);
                 }
                 if (psUpdateChild.executeUpdate() == 1) {
-                    sqlUtils.commit(conn);
+                    sqlUtils.commit(conn, sessionId);
                 } else {
-                    throw new SQLException("Haven't requested children", null, 20103);
+                    throw new DbException("Haven't requested children", null, 20103);
                 }
             } catch (SQLException e) {
-                sqlUtils.rollback(conn);
-                throw e;
+                sqlUtils.rollback(conn, sessionId);
+                throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
             }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
         }
     }
 
     @Override
-    public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws SQLException {
+    public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws DbException {
         GetMsisdnResponseType response = new GetMsisdnResponseType();
-        /*response = cacheGetMsisdn.getGetMsisdnCache().get(msisdn);
-        if (response == null) {
-            response = new GetMsisdnResponseType();
-        } else
-            return response;*/
-        try ( Connection conn = sqlUtils.getConnection() ) {
+        try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psGetParent = conn.prepareStatement(SQLQuery.GET_PARENT) ) {
                 psGetParent.setString(1, msisdn);
                 if (logger.isDebugEnabled()) {
@@ -210,6 +204,8 @@ public class DbServiceImpl implements DbService {
                     }
                 }
             }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
         }
         response.setResult("err_notFound");
         return response;

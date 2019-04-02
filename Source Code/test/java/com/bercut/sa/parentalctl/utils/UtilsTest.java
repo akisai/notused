@@ -3,8 +3,6 @@ package com.bercut.sa.parentalctl.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.sql.SQLException;
-
 /**
  * Created by haimin-a on 29.03.2019.
  */
@@ -15,26 +13,26 @@ public class UtilsTest {
         Assert.assertNotNull(Utils.createUuid());
     }
 
-    @Test(expected = SQLException.class)
-    public void validateMsisdnNull() throws SQLException {
+    @Test(expected = ValidateException.class)
+    public void validateMsisdnNull() throws ValidateException {
         String msisdn = null;
         Utils.validateMsisdn(msisdn);
     }
 
-    @Test(expected = SQLException.class)
-    public void validateMsisdnStartSymbol() throws SQLException {
+    @Test(expected = ValidateException.class)
+    public void validateMsisdnStartSymbol() throws ValidateException {
         String msisdn = "89995257229";
         Utils.validateMsisdn(msisdn);
     }
 
-    @Test(expected = SQLException.class)
-    public void validateMsisdnLenght() throws SQLException {
+    @Test(expected = ValidateException.class)
+    public void validateMsisdnLenght() throws ValidateException {
         String msisdn = "7888999";
         Utils.validateMsisdn(msisdn);
     }
 
-    @Test(expected = SQLException.class)
-    public void validateFlags() throws SQLException {
+    @Test(expected = ValidateException.class)
+    public void validateFlags() throws ValidateException {
         Boolean flag1 = true;
         Boolean flag2 = null;
         Utils.validateFlags(flag1, flag2);

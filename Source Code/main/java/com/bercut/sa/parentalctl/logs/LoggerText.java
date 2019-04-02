@@ -8,7 +8,9 @@ public enum LoggerText {
     SQL_RESPONSE("Session {} -> {} exec time (ms): {}"),
     SQL_ERROR("Session {} -> {} generate SQL error: {}"),
     REST_ERROR("Session {} -> {} rest response: {}"),
-    SQL_REQUEST("Session{} -> {} prepare SQL: \n{} with params: \n{}");
+    VALIDATE_ERROR("Session {} -> {} wrong request: {}"),
+    SQL_REQUEST("Session{} -> {} prepare SQL: \n{} with params: \n{}"),
+    SQL_OPERATION("Session{} -> {} done");
 
     private String text;
 

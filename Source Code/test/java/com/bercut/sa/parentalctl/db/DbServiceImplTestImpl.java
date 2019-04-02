@@ -1,6 +1,7 @@
 package com.bercut.sa.parentalctl.db;
 
 import com.bercut.sa.parentalctl.TestConfig;
+import com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest;
 import com.bercut.sa.parentalctl.rest.model.Children;
 import com.bercut.sa.parentalctl.rest.model.Flags;
 import com.bercut.sa.parentalctl.rest.model.Msisdn;
@@ -9,9 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.sql.SQLException;
-
-import static com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest.CONFLICT;
 import static com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest.DUPLICATE;
 import static com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest.CHILDREN;
 import static com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest.PARENT;
@@ -26,54 +24,54 @@ public class DbServiceImplTestImpl implements DbService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public void addParent(String sessionId, Msisdn msisdn) throws SQLException {
+    public void addParent(String sessionId, Msisdn msisdn) throws DbException {
         switch (msisdn.getMsisdn()) {
-            case CONFLICT:
-                throw new SQLException("Number already assign to children", null, 20100);
+            case ParentalctlRestControllerTest.CONFLICT:
+                throw new DbException("Number already assign to children", null, 20100);
             case DUPLICATE:
-                throw new SQLException("Duplicate", null, 1);
+                throw new DbException("Duplicate", null, 1);
             default:
         }
     }
 
     @Override
-    public void addChild(String sessionId, Children children) throws SQLException {
+    public void addChild(String sessionId, Children children) throws DbException {
         switch (children.getMsisdn()) {
-            case CONFLICT:
-                throw new SQLException("Number already assign to parent", null, 20100);
+            case ParentalctlRestControllerTest.CONFLICT:
+                throw new DbException("Number already assign to parent", null, 20100);
             case DUPLICATE:
-                throw new SQLException("Duplicate", null, 1);
+                throw new DbException("Duplicate", null, 1);
             default:
         }
     }
 
     @Override
-    public void delParent(String sessionId, String msisdn) throws SQLException {
+    public void delParent(String sessionId, String msisdn) throws DbException {
         switch (msisdn) {
             case DUPLICATE:
-                throw new SQLException("Haven't requested parent", null, 20103);
-            case CONFLICT:
-                throw new SQLException("Parent has children yet", null, 20100);
+                throw new DbException("Haven't requested parent", null, 20103);
+            case ParentalctlRestControllerTest.CONFLICT:
+                throw new DbException("Parent has children yet", null, 20100);
             default:
         }
     }
 
     @Override
-    public void delChild(String sessionId, String msisdn) throws SQLException {
+    public void delChild(String sessionId, String msisdn) throws DbException {
         if (DUPLICATE.equals(msisdn)) {
-            throw new SQLException("Haven't requested children", null, 20103);
+            throw new DbException("Haven't requested children", null, 20103);
         }
     }
 
     @Override
-    public void setChild(String sessionId, String msisdn, Flags flags) throws SQLException {
+    public void setChild(String sessionId, String msisdn, Flags flags) throws DbException {
         if (DUPLICATE.equals(msisdn)) {
-            throw new SQLException("Haven't requested children", null, 20103);
+            throw new DbException("Haven't requested children", null, 20103);
         }
     }
 
     @Override
-    public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws SQLException {
+    public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws DbException {
         GetMsisdnResponseType response = new GetMsisdnResponseType();
         switch (msisdn) {
             case PARENT:
