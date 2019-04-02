@@ -67,7 +67,7 @@ public class DbServiceImplTestImpl implements DbService {
     }
 
     @Override
-    public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws DbException {
+    public GetMsisdnResponseType getAbonentType(String sessionId, String msisdn) throws DbException {
         GetMsisdnResponseType response = new GetMsisdnResponseType();
         switch (msisdn) {
             case ParentalCtlSoapImplTest.PARENT:

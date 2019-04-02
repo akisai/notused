@@ -20,5 +20,5 @@ public interface DbService {
 
     void setChild(String sessionId, String msisdn, Flags flags) throws DbException;
 
-    GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws DbException;
+    GetMsisdnResponseType getAbonentType(String sessionId, String msisdn) throws DbException;
 }

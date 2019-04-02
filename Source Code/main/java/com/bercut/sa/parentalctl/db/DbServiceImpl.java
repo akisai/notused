@@ -175,7 +175,7 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws DbException {
+    public GetMsisdnResponseType getAbonentType(String sessionId, String msisdn) throws DbException {
         GetMsisdnResponseType response = new GetMsisdnResponseType();
         try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psGetParent = conn.prepareStatement(SQLQuery.GET_PARENT) ) {

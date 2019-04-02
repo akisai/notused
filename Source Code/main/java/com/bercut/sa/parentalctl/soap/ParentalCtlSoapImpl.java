@@ -62,7 +62,7 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
         GetMsisdnResponseType response;
         try {
             Utils.validateMsisdn(params.getMsisdn());
-            response = dbService.getMsisdn(sessionId, params.getMsisdn());
+            response = dbService.getAbonentType(sessionId, params.getMsisdn());
             long endExec = new Date().getTime();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, SoapProcedure.get_msisdn, endExec - startExec);
