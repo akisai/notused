@@ -38,7 +38,7 @@ public class SqlUtils {
             }
             return ds.getConnection();
         } catch (Throwable e) {
-            logger.warn(LoggerText.SQL_ERROR.getText(), sessionId, "getConnection", e.getMessage());
+            logger.warn(LoggerText.DB_ERROR.getText(), sessionId, "getConnection", e.getMessage());
             throw new SQLException("Connection refused: " + e.getMessage(), e);
         }
     }
@@ -51,7 +51,7 @@ public class SqlUtils {
                     logger.debug(LoggerText.SQL_OPERATION.getText(), sessionId, "commit");
                 }
             } catch (SQLException e) {
-                logger.warn(LoggerText.SQL_ERROR.getText(), sessionId, "commit", e.getMessage());
+                logger.warn(LoggerText.DB_ERROR.getText(), sessionId, "commit", e.getMessage());
             }
         }
     }
@@ -64,7 +64,7 @@ public class SqlUtils {
                     logger.debug(LoggerText.SQL_OPERATION.getText(), sessionId, "rollback");
                 }
             } catch (SQLException e) {
-                logger.warn(LoggerText.SQL_ERROR.getText(), sessionId, "rollback", e.getMessage());
+                logger.warn(LoggerText.DB_ERROR.getText(), sessionId, "rollback", e.getMessage());
             }
         }
     }

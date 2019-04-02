@@ -57,18 +57,18 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
 
     @Override
     public GetMsisdnResponseType parentalCtlOperation(GetMsisdnRequestType params, ServerRequestParameters requestParameters) throws SqlExceptionException {
+        long startExec = new Date().getTime();
         String sessionId = requestParameters.getContext().getUuid().toString();
         GetMsisdnResponseType response;
         try {
             Utils.validateMsisdn(params.getMsisdn());
-            long startExec = new Date().getTime();
             response = dbService.getMsisdn(sessionId, params.getMsisdn());
             long endExec = new Date().getTime();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, SoapProcedure.get_msisdn, endExec - startExec);
             }
         } catch (DbException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, SoapProcedure.get_msisdn, e.getMessage());
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, SoapProcedure.get_msisdn, e.getMessage());
             throw new SqlExceptionException("GetMsisdn fault", new SqlException(e.getMessage(), e.getErrorCode()));
         } catch (ValidateException e) {
             logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, SoapProcedure.get_msisdn, e.getMessage());

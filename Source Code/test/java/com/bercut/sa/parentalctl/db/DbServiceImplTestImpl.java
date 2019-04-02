@@ -5,15 +5,11 @@ import com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest;
 import com.bercut.sa.parentalctl.rest.model.Children;
 import com.bercut.sa.parentalctl.rest.model.Flags;
 import com.bercut.sa.parentalctl.rest.model.Msisdn;
+import com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest;
 import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
-
-import static com.bercut.sa.parentalctl.rest.ParentalctlRestControllerTest.DUPLICATE;
-import static com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest.CHILDREN;
-import static com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest.PARENT;
-
 /**
  * Created by haimin-a on 29.03.2019.
  */
@@ -28,7 +24,7 @@ public class DbServiceImplTestImpl implements DbService {
         switch (msisdn.getMsisdn()) {
             case ParentalctlRestControllerTest.CONFLICT:
                 throw new DbException("Number already assign to children", null, 20100);
-            case DUPLICATE:
+            case ParentalctlRestControllerTest.DUPLICATE:
                 throw new DbException("Duplicate", null, 1);
             default:
         }
@@ -39,7 +35,7 @@ public class DbServiceImplTestImpl implements DbService {
         switch (children.getMsisdn()) {
             case ParentalctlRestControllerTest.CONFLICT:
                 throw new DbException("Number already assign to parent", null, 20100);
-            case DUPLICATE:
+            case ParentalctlRestControllerTest.DUPLICATE:
                 throw new DbException("Duplicate", null, 1);
             default:
         }
@@ -48,7 +44,7 @@ public class DbServiceImplTestImpl implements DbService {
     @Override
     public void delParent(String sessionId, String msisdn) throws DbException {
         switch (msisdn) {
-            case DUPLICATE:
+            case ParentalctlRestControllerTest.DUPLICATE:
                 throw new DbException("Haven't requested parent", null, 20103);
             case ParentalctlRestControllerTest.CONFLICT:
                 throw new DbException("Parent has children yet", null, 20100);
@@ -58,14 +54,14 @@ public class DbServiceImplTestImpl implements DbService {
 
     @Override
     public void delChild(String sessionId, String msisdn) throws DbException {
-        if (DUPLICATE.equals(msisdn)) {
+        if (ParentalctlRestControllerTest.DUPLICATE.equals(msisdn)) {
             throw new DbException("Haven't requested children", null, 20103);
         }
     }
 
     @Override
     public void setChild(String sessionId, String msisdn, Flags flags) throws DbException {
-        if (DUPLICATE.equals(msisdn)) {
+        if (ParentalctlRestControllerTest.DUPLICATE.equals(msisdn)) {
             throw new DbException("Haven't requested children", null, 20103);
         }
     }
@@ -74,10 +70,10 @@ public class DbServiceImplTestImpl implements DbService {
     public GetMsisdnResponseType getMsisdn(String sessionId, String msisdn) throws DbException {
         GetMsisdnResponseType response = new GetMsisdnResponseType();
         switch (msisdn) {
-            case PARENT:
+            case ParentalCtlSoapImplTest.PARENT:
                 response.setResult("ok_parent");
                 return response;
-            case CHILDREN:
+            case ParentalCtlSoapImplTest.CHILDREN:
                 response.setResult("ok_children");
                 return response;
             default:

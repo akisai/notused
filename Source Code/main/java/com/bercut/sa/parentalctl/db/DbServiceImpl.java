@@ -118,6 +118,9 @@ public class DbServiceImpl implements DbService {
                 }
             } catch (SQLException e) {
                 sqlUtils.rollback(conn, sessionId);
+                if (e.getErrorCode() == 2292) {
+                    throw new DbException(e.getMessage(), e.getSQLState(), 20100);
+                }
                 throw new DbException(e.getMessage(), e.getSQLState(), e.getErrorCode());
             }
         } catch (SQLException e) {

@@ -48,7 +48,7 @@ public class ParentalctlRestController {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_parent, endExec - startExec);
             }
         } catch (DbException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.add_parent, e.getMessage());
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, RestProcedure.add_parent, e.getMessage());
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_parent, status);
         } catch (ValidateException e) {
@@ -79,7 +79,7 @@ public class ParentalctlRestController {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_child, endExec - startExec);
             }
         } catch (DbException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_child, status);
         } catch (ValidateException e) {
@@ -106,7 +106,7 @@ public class ParentalctlRestController {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_parent, endExec - startExec);
             }
         } catch (DbException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.delete_parent, e.getMessage());
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, RestProcedure.delete_parent, e.getMessage());
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_parent, status);
         } catch (ValidateException e) {
@@ -133,7 +133,7 @@ public class ParentalctlRestController {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_child, endExec - startExec);
             }
         } catch (DbException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.delete_child, e.getMessage());
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, RestProcedure.delete_child, e.getMessage());
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_child, status);
         } catch (ValidateException e) {
@@ -161,7 +161,7 @@ public class ParentalctlRestController {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.set_child, endExec - startExec);
             }
         } catch (DbException e) {
-            logger.error(LoggerText.SQL_ERROR.getText(), sessionId, RestProcedure.set_child, e.getMessage());
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, RestProcedure.set_child, e.getMessage());
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.set_child, status);
         } catch (ValidateException e) {
