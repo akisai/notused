@@ -44,7 +44,6 @@
         <component name="Spring Framework 4.3.12.RELEASE spring-expression" mainstream="4.3" />
         <component name="Spring Framework 4.3.12.RELEASE spring-orm" mainstream="4.3" />
         <!-- spring end -->
-        <component name="Tele2 InVoice INV_TARIFF" mainstream="4.12" />
         <component name="Spring Framework 4.3.12.RELEASE spring-test" mainstream="4.3" />
       </uses>
       <interface />
@@ -52,7 +51,7 @@
         <rtsib-wsdlgen name="AOI ParentalCtl" mainstream="1.0" asynch="no" noextract="yes" plt="ParentalCtl" server="yes" swaproles="no" todir="gen/java" version="3.2" />
       </wsdl-codegen>
       <sources encoding="utf-8">
-        <war filename="sa-parentalctl.war" webxml="WEB-INF/web.xml" basedir="web">
+        <war filename="sa-parentalctl.war" webxml="web/WEB-INF/web.xml" basedir="web">
           <!-- jackson start -->
           <component name="jackson-annotations" mainstream="2.9" />
           <component name="jackson-core" mainstream="2.9" />
