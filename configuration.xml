@@ -2,6 +2,12 @@
 <component owner="Bercut" system="ParentalControl" subsystem="SA" name="SA ParentalCtl" mainstream="1.0">
   <version current="1.0.0">
     <responsibility>
+      <author>
+        <full-name>Хаймин Артем</full-name>
+      </author>
+      <manager>
+        <full-name>Хаймин Артем</full-name>
+      </manager>
     </responsibility>
     <build filename="sa-parentalctl" type="java" ext="war">
       <uses>
@@ -15,6 +21,7 @@
         <component name="Oracle JDBC Driver 6 12.1.0.2.0" mainstream="12.1" />
         <component name="Tomcat servlet-api" mainstream="7.0" />
         <component name="AOI ParentalCtl" mainstream="1.0" use-as="wsdl" todir="WEB-INF\wsdl" />
+        <component name="XML runtime" mainstream="1.0.last_release" />
         <!-- log4j start -->
         <component name="Log4j 1.2.17" mainstream="1.0" />
         <component name="slf4j log4j" mainstream="1.7" />
