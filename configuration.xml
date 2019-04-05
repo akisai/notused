@@ -2,12 +2,6 @@
 <component owner="Bercut" system="ParentalControl" subsystem="SA" name="SA ParentalCtl" mainstream="1.0">
   <version current="1.0.0">
     <responsibility>
-      <author>
-        <full-name>������ �����</full-name>
-      </author>
-      <manager>
-        <full-name>������ �����</full-name>
-      </manager>
     </responsibility>
     <build filename="sa-parentalctl" type="java" ext="war">
       <uses>
