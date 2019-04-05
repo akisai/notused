@@ -3,10 +3,10 @@
   <version current="1.0.0">
     <responsibility>
       <author>
-        <full-name>Хаймин Артем</full-name>
+        <full-name>������ �����</full-name>
       </author>
       <manager>
-        <full-name>Хаймин Артем</full-name>
+        <full-name>������ �����</full-name>
       </manager>
     </responsibility>
     <build filename="sa-parentalctl" type="java" ext="war">
@@ -17,7 +17,6 @@
         <component name="SAClientLib" mainstream="3.2.last_release" />
         <component name="SADB Commons" mainstream="3.2.last_release" />
         <component name="Bercut Common" mainstream="1.2" />
-        <component name="XML runtime" mainstream="1.0.last_release" />
         <component name="slf4j api" mainstream="1.7" />
         <component name="Oracle JDBC Driver 6 12.1.0.2.0" mainstream="12.1" />
         <component name="Tomcat servlet-api" mainstream="7.0" />
