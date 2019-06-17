@@ -6,7 +6,6 @@ import com.bercut.sa.parentalctl.rest.model.Children;
 import com.bercut.sa.parentalctl.rest.model.Flags;
 import com.bercut.sa.parentalctl.rest.model.Msisdn;
 import com.bercut.sa.parentalctl.soap.ParentalCtlSoapImplTest;
-import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -67,8 +66,8 @@ public class DbServiceImplTestImpl implements DbService {
     }
 
     @Override
-    public GetMsisdnResponseType getAbonentType(String sessionId, String msisdn) throws DbException {
-        GetMsisdnResponseType response = new GetMsisdnResponseType();
+    public GetMsisdnResponse getAbonentType(String sessionId, String msisdn) throws DbException {
+        GetMsisdnResponse response = new GetMsisdnResponse();
         switch (msisdn) {
             case ParentalCtlSoapImplTest.PARENT:
                 response.setResult("ok_parent");

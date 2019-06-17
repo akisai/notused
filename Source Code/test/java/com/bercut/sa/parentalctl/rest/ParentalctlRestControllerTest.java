@@ -193,4 +193,25 @@ public class ParentalctlRestControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.patch(uri).contentType(MediaType.APPLICATION_JSON_UTF8).content(input))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
     }
+
+    @Test
+    public void getMsisdnNotFound() throws Exception {
+        String uri = "/v1/msisdn/" + TRUE;
+        mockMvc.perform(MockMvcRequestBuilders.get(uri)).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("{\"result\":\"err_notFound\"}"));
+    }
+
+    @Test
+    public void getMsisdnChildren() throws Exception {
+        String uri = "/v1/msisdn/" + CONFLICT;
+        mockMvc.perform(MockMvcRequestBuilders.get(uri)).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("{\"result\":\"ok_children\"}"));
+    }
+
+    @Test
+    public void getMsisdnParent() throws Exception {
+        String uri = "/v1/msisdn/" + DUPLICATE;
+        mockMvc.perform(MockMvcRequestBuilders.get(uri)).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("{\"result\":\"ok_parent\"}"));
+    }
 }
