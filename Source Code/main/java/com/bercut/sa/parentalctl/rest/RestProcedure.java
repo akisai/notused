@@ -8,5 +8,6 @@ public enum RestProcedure {
     add_child,
     delete_parent,
     delete_child,
-    set_child
+    set_child,
+    get_msisdn
 }

@@ -2,6 +2,7 @@ package com.bercut.sa.parentalctl.rest;
 
 import com.bercut.sa.parentalctl.db.DbException;
 import com.bercut.sa.parentalctl.db.DbService;
+import com.bercut.sa.parentalctl.db.GetMsisdnResponse;
 import com.bercut.sa.parentalctl.logs.LoggerText;
 import com.bercut.sa.parentalctl.rest.model.Children;
 import com.bercut.sa.parentalctl.rest.model.Flags;
@@ -172,5 +173,32 @@ public class ParentalctlRestController {
         return new ResponseEntity(status);
     }
 
+    @GetMapping("/msisdn/{msisdn:\\w+}")
+    public ResponseEntity getMsisdn(@PathVariable String msisdn) {
+        long startExec = new Date().getTime();
+        final String sessionId = Utils.createUuid();
+        HttpStatus status = HttpStatus.OK;
+        GetMsisdnResponse response = null;
+        if (logger.isDebugEnabled()) {
+            logger.debug(LoggerText.REST_REQUEST.getText(), RestProcedure.get_msisdn, sessionId, "msisdn=" + msisdn);
+        }
+        try {
+            Utils.validateMsisdn(msisdn);
+            response = dbService.getAbonentType(sessionId, msisdn);
+            long endExec = new Date().getTime();
+            if (logger.isDebugEnabled()) {
+                logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.get_msisdn, endExec - startExec);
+            }
+        } catch (ValidateException e) {
+            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.get_msisdn, e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.get_msisdn, status);
+        } catch (DbException e) {
+            logger.error(LoggerText.DB_ERROR.getText(), sessionId, RestProcedure.get_msisdn, e.getMessage());
+            status = Utils.parseError(e);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.get_msisdn, status);
+        }
+        return ResponseEntity.status(status).body(response);
+    }
 
 }

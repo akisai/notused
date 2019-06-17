@@ -6,6 +6,7 @@ import com.bercut.mb.sdk.MessageBusFault;
 import com.bercut.mb.sdk.request.ServerRequestParameters;
 import com.bercut.sa.parentalctl.db.DbException;
 import com.bercut.sa.parentalctl.db.DbService;
+import com.bercut.sa.parentalctl.db.GetMsisdnResponse;
 import com.bercut.sa.parentalctl.logs.LoggerText;
 import com.bercut.sa.parentalctl.utils.Utils;
 import com.bercut.sa.parentalctl.utils.ValidateException;
@@ -59,7 +60,7 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
     public GetMsisdnResponseType parentalCtlOperation(GetMsisdnRequestType params, ServerRequestParameters requestParameters) throws SqlExceptionException {
         long startExec = new Date().getTime();
         String sessionId = requestParameters.getContext().getUuid().toString();
-        GetMsisdnResponseType response;
+        GetMsisdnResponse response;
         try {
             Utils.validateMsisdn(params.getMsisdn());
             response = dbService.getAbonentType(sessionId, params.getMsisdn());
@@ -74,6 +75,6 @@ public class ParentalCtlSoapImpl implements ParentalCtlPortType {
             logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, SoapProcedure.get_msisdn, e.getMessage());
             throw new SqlExceptionException("GetMsisdn fault", new SqlException(e.getMessage(), 400));
         }
-        return response;
+        return new GetMsisdnResponseType(response.getResult(), response.getMsisdn(), response.getParent(), response.getFwdAoc(), response.getFwdPay());
     }
 }

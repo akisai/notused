@@ -7,7 +7,6 @@ import com.bercut.sa.parentalctl.rest.model.Flags;
 import com.bercut.sa.parentalctl.rest.model.Msisdn;
 import com.bercut.sa.parentalctl.soap.SoapProcedure;
 import com.bercut.sa.parentalctl.utils.SqlUtils;
-import com.bercut.schema.aoi_parentalctl.GetMsisdnResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,8 +174,8 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    public GetMsisdnResponseType getAbonentType(String sessionId, String msisdn) throws DbException {
-        GetMsisdnResponseType response = new GetMsisdnResponseType();
+    public GetMsisdnResponse getAbonentType(String sessionId, String msisdn) throws DbException {
+        GetMsisdnResponse response = new GetMsisdnResponse();
         try ( Connection conn = sqlUtils.getConnection(sessionId) ) {
             try ( PreparedStatement psGetParent = conn.prepareStatement(SQLQuery.GET_PARENT) ) {
                 psGetParent.setString(1, msisdn);
