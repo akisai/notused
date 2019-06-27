@@ -14,8 +14,8 @@
         </responsibility>
         <build filename="sa-parentalctl" type="java" ext="war">
             <uses>
-                <component name="ATLAS OM Interface" mainstream="1.4"/>
-                <component name="ATLAS API Interface" mainstream="1.4"/>
+                <component name="ATLAS OM Interface" mainstream="1.5"/>
+                <component name="ATLAS API Interface" mainstream="1.5"/>
                 <component name="RTSIB Runtime" mainstream="3.4.last_release"/>
                 <component name="SAClientLib" mainstream="3.4.last_release"/>
                 <component name="SADB Commons" mainstream="3.4.last_release"/>
@@ -52,7 +52,7 @@
             <interface/>
             <wsdl-codegen>
                 <rtsib-wsdlgen name="AOI ParentalCtl" mainstream="1.0" asynch="no" noextract="yes" plt="ParentalCtl"
-                               server="yes" swaproles="no" todir="gen/java" version="3.3"/>
+                               server="yes" swaproles="no" todir="gen/java" version="3.4"/>
             </wsdl-codegen>
             <sources encoding="utf-8">
                 <war filename="sa-parentalctl.war" webxml="web/WEB-INF/web.xml" basedir="web">
