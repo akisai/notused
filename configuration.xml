@@ -1,94 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component owner="Bercut" system="ParentalControl" subsystem="SA" name="SA ParentalCtl" mainstream="1.0">
-  <version current="1.0.1">
-    <responsibility>
-      <author>
-        <full-name>Хаймин Артем</full-name>
-      </author>
-      <manager>
-        <full-name>Хаймин Артем</full-name>
-      </manager>
-    </responsibility>
-    <build filename="sa-parentalctl" type="java" ext="war">
-      <uses>
-        <component name="ATLAS OM Interface" mainstream="1.4" />
-        <component name="ATLAS API Interface" mainstream="1.4" />
-        <component name="RTSIB Runtime" mainstream="3.4.last_release" />
-        <component name="SAClientLib" mainstream="3.4.last_release" />
-        <component name="SADB Commons" mainstream="3.4.last_release" />
-        <component name="Bercut Common" mainstream="1.2" />
-        <component name="slf4j api" mainstream="1.7" />
-        <component name="Oracle JDBC Driver 6 12.1.0.2.0" mainstream="12.1" />
-        <component name="Tomcat servlet-api" mainstream="7.0" />
-        <component name="AOI ParentalCtl" mainstream="1.0" use-as="wsdl" todir="WEB-INF\wsdl" />
-        <component name="XML runtime" mainstream="1.1.last_release" />
-        <!-- log4j start -->
-        <component name="Log4j 1.2.17" mainstream="1.0" />
-        <component name="slf4j log4j" mainstream="1.7" />
-        <component name="slf4j api" mainstream="1.7" />
-        <!-- -->
-        <component name="Commons logging" mainstream="1.1" />
-        <!-- jackson start -->
-        <component name="jackson-annotations" mainstream="2.9" />
-        <component name="jackson-core" mainstream="2.9" />
-        <component name="jackson-databind" mainstream="2.9" />
-        <!-- jackson end -->
-        <!-- spring start -->
-        <component name="Spring Framework 4.3.12.RELEASE spring-web" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-core" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-aop" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-beans" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-context" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-webmvc" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-tx" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-expression" mainstream="4.3" />
-        <component name="Spring Framework 4.3.12.RELEASE spring-orm" mainstream="4.3" />
-        <!-- spring end -->
-        <component name="Spring Framework 4.3.12.RELEASE spring-test" mainstream="4.3" />
-      </uses>
-      <interface />
-      <wsdl-codegen>
-        <rtsib-wsdlgen name="AOI ParentalCtl" mainstream="1.0" asynch="no" noextract="yes" plt="ParentalCtl" server="yes" swaproles="no" todir="gen/java" version="3.3" />
-      </wsdl-codegen>
-      <sources encoding="utf-8">
-        <war filename="sa-parentalctl.war" webxml="web/WEB-INF/web.xml" basedir="web">
-          <!-- jackson start -->
-          <external-lib name="jackson-annotations" mainstream="2.9" />
-          <external-lib name="jackson-core" mainstream="2.9" />
-          <external-lib name="jackson-databind" mainstream="2.9" />
-          <!-- jackson end -->
-          <!-- log4j start -->
-          <external-lib name="Log4j 1.2.17" mainstream="1.0" />
-          <external-lib name="slf4j log4j" mainstream="1.7" />
-          <external-lib name="slf4j api" mainstream="1.7" />
-          <!-- -->
-          <!-- spring start -->
-          <external-lib name="spring-aop-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-beans-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-context-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-core-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-expression-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-orm-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-tx-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-webmvc-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-web-4.3.12.RELEASE.jar" />
-          <!-- sping end -->
-          <source name="main/java/**/*.java" />
-          <source name="gen/java/**/*.java" />
-          <external-lib name="Bercut Common 1.2" />
-          <external-lib name="XML runtime 1.1" />
-          <external-lib name="Commons logging 1.1" />
-          <resource name="WEB-INF\**\*.*" />
-          <resource name="*.xml" />
-        </war>
-      </sources>
-      <atlas name="SA_ParentalCtl_v1.atlas.xml" todir="gen/java" package="com.bercut.sa.parentalctl.atlas.gen" />
-      <platform name="Java">
-        <build-project compiler="JDK 17" />
-      </platform>
-    </build>
-  </version>
-  <descriptor version="1.3" />
-  <description>������� ��� ������ �� �������� �������-�������� ParentalControl</description>
+    <version current="1.0.1">
+        <responsibility>
+            <author>
+                <full-name>Хаймин Артем</full-name>
+            </author>
+            <manager>
+                <full-name>Хаймин Артем</full-name>
+            </manager>
+            <manager>
+                <full-name>Янковский Роман</full-name>
+            </manager>
+        </responsibility>
+        <build filename="sa-parentalctl" type="java" ext="war">
+            <uses>
+                <component name="ATLAS OM Interface" mainstream="1.4"/>
+                <component name="ATLAS API Interface" mainstream="1.4"/>
+                <component name="RTSIB Runtime" mainstream="3.4.last_release"/>
+                <component name="SAClientLib" mainstream="3.4.last_release"/>
+                <component name="SADB Commons" mainstream="3.4.last_release"/>
+                <component name="Bercut Common" mainstream="1.2"/>
+                <component name="slf4j api" mainstream="1.7"/>
+                <component name="Oracle JDBC Driver 6 12.1.0.2.0" mainstream="12.1"/>
+                <component name="Tomcat servlet-api" mainstream="7.0"/>
+                <component name="AOI ParentalCtl" mainstream="1.0" use-as="wsdl" todir="WEB-INF\wsdl"/>
+                <component name="XML runtime" mainstream="1.1.last_release"/>
+                <!-- log4j start -->
+                <component name="Log4j 1.2.17" mainstream="1.0"/>
+                <component name="slf4j log4j" mainstream="1.7"/>
+                <component name="slf4j api" mainstream="1.7"/>
+                <!-- -->
+                <component name="Commons logging" mainstream="1.1"/>
+                <!-- jackson start -->
+                <component name="jackson-annotations" mainstream="2.9"/>
+                <component name="jackson-core" mainstream="2.9"/>
+                <component name="jackson-databind" mainstream="2.9"/>
+                <!-- jackson end -->
+                <!-- spring start -->
+                <component name="Spring Framework 4.3.12.RELEASE spring-web" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-core" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-aop" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-beans" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-context" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-webmvc" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-tx" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-expression" mainstream="4.3"/>
+                <component name="Spring Framework 4.3.12.RELEASE spring-orm" mainstream="4.3"/>
+                <!-- spring end -->
+                <component name="Spring Framework 4.3.12.RELEASE spring-test" mainstream="4.3"/>
+            </uses>
+            <interface/>
+            <wsdl-codegen>
+                <rtsib-wsdlgen name="AOI ParentalCtl" mainstream="1.0" asynch="no" noextract="yes" plt="ParentalCtl"
+                               server="yes" swaproles="no" todir="gen/java" version="3.3"/>
+            </wsdl-codegen>
+            <sources encoding="utf-8">
+                <war filename="sa-parentalctl.war" webxml="web/WEB-INF/web.xml" basedir="web">
+                    <!-- jackson start -->
+                    <external-lib name="jackson-annotations" mainstream="2.9"/>
+                    <external-lib name="jackson-core" mainstream="2.9"/>
+                    <external-lib name="jackson-databind" mainstream="2.9"/>
+                    <!-- jackson end -->
+                    <!-- log4j start -->
+                    <external-lib name="Log4j 1.2.17" mainstream="1.0"/>
+                    <external-lib name="slf4j log4j" mainstream="1.7"/>
+                    <external-lib name="slf4j api" mainstream="1.7"/>
+                    <!-- -->
+                    <!-- spring start -->
+                    <external-lib name="spring-aop-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-beans-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-context-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-core-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-expression-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-orm-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-tx-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-webmvc-4.3.12.RELEASE.jar"/>
+                    <external-lib name="spring-web-4.3.12.RELEASE.jar"/>
+                    <!-- sping end -->
+                    <source name="main/java/**/*.java"/>
+                    <source name="gen/java/**/*.java"/>
+                    <external-lib name="Bercut Common 1.2"/>
+                    <external-lib name="XML runtime 1.1"/>
+                    <external-lib name="Commons logging 1.1"/>
+                    <resource name="WEB-INF\**\*.*"/>
+                    <resource name="*.xml"/>
+                </war>
+            </sources>
+            <atlas name="SA_ParentalCtl_v1.atlas.xml" todir="gen/java" package="com.bercut.sa.parentalctl.atlas.gen"/>
+            <platform name="Java">
+                <build-project compiler="JDK 17"/>
+            </platform>
+        </build>
+    </version>
+    <descriptor version="1.3"/>
+    <description>������� ��� ������ �� �������� �������-�������� ParentalControl</description>
 </component>
 
