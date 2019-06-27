@@ -76,6 +76,7 @@
           <source name="main/java/**/*.java" />
           <source name="gen/java/**/*.java" />
           <external-lib name="Bercut Common 1.2" />
+          <external-lib name="XML runtime" mainstream="1.0.last_release" />
           <external-lib name="Commons logging 1.1" />
           <resource name="WEB-INF\**\*.*" />
           <resource name="*.xml" />
