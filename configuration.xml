@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <component owner="Bercut" system="ParentalControl" subsystem="SA" name="SA ParentalCtl" mainstream="1.0">
   <version current="1.0.0">
     <responsibility>
