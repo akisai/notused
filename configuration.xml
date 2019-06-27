@@ -13,9 +13,9 @@
       <uses>
         <component name="ATLAS OM Interface" mainstream="1.4" />
         <component name="ATLAS API Interface" mainstream="1.4" />
-        <component name="RTSIB Runtime" mainstream="3.2.last_release" />
-        <component name="SAClientLib" mainstream="3.2.last_release" />
-        <component name="SADB Commons" mainstream="3.2.last_release" />
+        <component name="RTSIB Runtime" mainstream="3.4.last_release" />
+        <component name="SAClientLib" mainstream="3.4.last_release" />
+        <component name="SADB Commons" mainstream="3.4.last_release" />
         <component name="Bercut Common" mainstream="1.2" />
         <component name="slf4j api" mainstream="1.7" />
         <component name="Oracle JDBC Driver 6 12.1.0.2.0" mainstream="12.1" />
@@ -53,14 +53,14 @@
       <sources encoding="utf-8">
         <war filename="sa-parentalctl.war" webxml="web/WEB-INF/web.xml" basedir="web">
           <!-- jackson start -->
-          <component name="jackson-annotations" mainstream="2.9" />
-          <component name="jackson-core" mainstream="2.9" />
-          <component name="jackson-databind" mainstream="2.9" />
+          <external-lib name="jackson-annotations" mainstream="2.9" />
+          <external-lib name="jackson-core" mainstream="2.9" />
+          <external-lib name="jackson-databind" mainstream="2.9" />
           <!-- jackson end -->
           <!-- log4j start -->
-          <component name="Log4j 1.2.17" mainstream="1.0" />
-          <component name="slf4j log4j" mainstream="1.7" />
-          <component name="slf4j api" mainstream="1.7" />
+          <external-lib name="Log4j 1.2.17" mainstream="1.0" />
+          <external-lib name="slf4j log4j" mainstream="1.7" />
+          <external-lib name="slf4j api" mainstream="1.7" />
           <!-- -->
           <!-- spring start -->
           <external-lib name="spring-aop-4.3.12.RELEASE.jar" />
