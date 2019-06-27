@@ -43,9 +43,7 @@
                 <component name="Spring Framework 4.3.12.RELEASE spring-beans" mainstream="4.3"/>
                 <component name="Spring Framework 4.3.12.RELEASE spring-context" mainstream="4.3"/>
                 <component name="Spring Framework 4.3.12.RELEASE spring-webmvc" mainstream="4.3"/>
-                <component name="Spring Framework 4.3.12.RELEASE spring-tx" mainstream="4.3"/>
                 <component name="Spring Framework 4.3.12.RELEASE spring-expression" mainstream="4.3"/>
-                <component name="Spring Framework 4.3.12.RELEASE spring-orm" mainstream="4.3"/>
                 <!-- spring end -->
 				
                 <component name="Spring Framework 4.3.12.RELEASE spring-test" mainstream="4.3"/>
@@ -80,8 +78,10 @@
                     <!-- sping end -->
                     <source name="main/java/**/*.java"/>
                     <source name="gen/java/**/*.java"/>
-                    <external-lib name="Bercut Common 1.2"/>
+                    <external-lib name="Apache httpclient 4.5"/>
+                    <external-lib name="Apache httpcore 4.4"/>
                     <external-lib name="XML runtime 1.1"/>
+                    <external-lib name="Apache Commons Codec 1.6"/>
                     <external-lib name="Commons logging 1.1"/>
                     <resource name="WEB-INF\**\*.*"/>
                     <resource name="*.xml"/>
