@@ -48,7 +48,7 @@
       </uses>
       <interface />
       <wsdl-codegen>
-        <rtsib-wsdlgen name="AOI ParentalCtl" mainstream="1.0" asynch="no" noextract="yes" plt="ParentalCtl" server="yes" swaproles="no" todir="gen/java" version="3.2" />
+        <rtsib-wsdlgen name="AOI ParentalCtl" mainstream="1.0" asynch="no" noextract="yes" plt="ParentalCtl" server="yes" swaproles="no" todir="gen/java" version="3.4" />
       </wsdl-codegen>
       <sources encoding="utf-8">
         <war filename="sa-parentalctl.war" webxml="web/WEB-INF/web.xml" basedir="web">
