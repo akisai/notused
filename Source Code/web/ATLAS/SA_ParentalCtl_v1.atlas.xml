@@ -17,6 +17,15 @@
                 <Ru>Настройки общей конфигурации компонента</Ru>
                 <En>General component settings</En>
             </Description>
+
+            <SimpleVariable name="AllowedIpList" required="true">
+                <Description>
+                    <Ru>Список через запятую  IP адресов для которых разрешены запросы</Ru>
+                    <En>Allowed IP adresses</En>
+                </Description>
+                <String default_value="127.0.0.1"/>
+            </SimpleVariable>
+
             <LogLevel name="LogLevel" required="true">
                 <Description>
                     <Ru>Уровень регистрации событий: Debug — сообщения всех уровней; Minimum — сообщения уровня minimum;

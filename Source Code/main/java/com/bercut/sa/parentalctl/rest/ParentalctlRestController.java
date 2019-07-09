@@ -17,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.Date;
-
 @RestController
 @RequestMapping("/v1")
 @EnableWebMvc
@@ -35,7 +33,7 @@ public class ParentalctlRestController {
 
     @PostMapping("/parent")
     public ResponseEntity addParent(@RequestBody Msisdn msisdn) {
-        long startExec = new Date().getTime();
+        long startExec = System.currentTimeMillis();
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.CREATED;
         if (logger.isDebugEnabled()) {
@@ -44,7 +42,7 @@ public class ParentalctlRestController {
         try {
             Utils.validateMsisdn(msisdn.getMsisdn());
             dbService.addParent(sessionId, msisdn);
-            long endExec = new Date().getTime();
+            long endExec = System.currentTimeMillis();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_parent, endExec - startExec);
             }
@@ -53,16 +51,16 @@ public class ParentalctlRestController {
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_parent, status);
         } catch (ValidateException e) {
-            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
+            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.add_parent, e.getMessage());
             status = HttpStatus.BAD_REQUEST;
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_child, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_parent, status);
         }
         return new ResponseEntity(status);
     }
 
     @PostMapping("/child")
     public ResponseEntity addChild(@RequestBody Children children) {
-        long startExec = new Date().getTime();
+        long startExec = System.currentTimeMillis();
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.CREATED;
         if (logger.isDebugEnabled()) {
@@ -75,7 +73,7 @@ public class ParentalctlRestController {
             }
             Utils.validateFlags(children.getFwdAoc(), children.getFwdPay());
             dbService.addChild(sessionId, children);
-            long endExec = new Date().getTime();
+            long endExec = System.currentTimeMillis();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.add_child, endExec - startExec);
             }
@@ -93,7 +91,7 @@ public class ParentalctlRestController {
 
     @DeleteMapping("/parent/{msisdn:\\w+}")
     public ResponseEntity delParent(@PathVariable String msisdn) {
-        long startExec = new Date().getTime();
+        long startExec = System.currentTimeMillis();
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.NO_CONTENT;
         if (logger.isDebugEnabled()) {
@@ -102,7 +100,7 @@ public class ParentalctlRestController {
         try {
             Utils.validateMsisdn(msisdn);
             dbService.delParent(sessionId, msisdn);
-            long endExec = new Date().getTime();
+            long endExec = System.currentTimeMillis();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_parent, endExec - startExec);
             }
@@ -111,16 +109,16 @@ public class ParentalctlRestController {
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_parent, status);
         } catch (ValidateException e) {
-            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
+            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.delete_parent, e.getMessage());
             status = HttpStatus.BAD_REQUEST;
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_child, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_parent, status);
         }
         return new ResponseEntity(status);
     }
 
     @DeleteMapping("/child/{msisdn:\\w+}")
     public ResponseEntity delChild(@PathVariable String msisdn) {
-        long startExec = new Date().getTime();
+        long startExec = System.currentTimeMillis();
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.NO_CONTENT;
         if (logger.isDebugEnabled()) {
@@ -129,7 +127,7 @@ public class ParentalctlRestController {
         try {
             Utils.validateMsisdn(msisdn);
             dbService.delChild(sessionId, msisdn);
-            long endExec = new Date().getTime();
+            long endExec = System.currentTimeMillis();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.delete_child, endExec - startExec);
             }
@@ -138,16 +136,16 @@ public class ParentalctlRestController {
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_child, status);
         } catch (ValidateException e) {
-            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
+            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.delete_child, e.getMessage());
             status = HttpStatus.BAD_REQUEST;
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_child, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.delete_child, status);
         }
         return new ResponseEntity(status);
     }
 
     @PatchMapping("/child/{msisdn:\\w+}")
     public ResponseEntity setChild(@PathVariable String msisdn, @RequestBody Flags flags) {
-        long startExec = new Date().getTime();
+        long startExec = System.currentTimeMillis();
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.OK;
         if (logger.isDebugEnabled()) {
@@ -157,7 +155,7 @@ public class ParentalctlRestController {
             Utils.validateMsisdn(msisdn);
             Utils.validateFlags(flags.getFwdAoc(), flags.getFwdPay());
             dbService.setChild(sessionId, msisdn, flags);
-            long endExec = new Date().getTime();
+            long endExec = System.currentTimeMillis();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.set_child, endExec - startExec);
             }
@@ -166,16 +164,16 @@ public class ParentalctlRestController {
             status = Utils.parseError(e);
             logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.set_child, status);
         } catch (ValidateException e) {
-            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.add_child, e.getMessage());
+            logger.error(LoggerText.VALIDATE_ERROR.getText(), sessionId, RestProcedure.set_child, e.getMessage());
             status = HttpStatus.BAD_REQUEST;
-            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.add_child, status);
+            logger.error(LoggerText.REST_ERROR.getText(), sessionId, RestProcedure.set_child, status);
         }
         return new ResponseEntity(status);
     }
 
     @GetMapping("/msisdn/{msisdn:\\w+}")
     public ResponseEntity getMsisdn(@PathVariable String msisdn) {
-        long startExec = new Date().getTime();
+        long startExec = System.currentTimeMillis();
         final String sessionId = Utils.createUuid();
         HttpStatus status = HttpStatus.OK;
         GetMsisdnResponse response = null;
@@ -185,7 +183,7 @@ public class ParentalctlRestController {
         try {
             Utils.validateMsisdn(msisdn);
             response = dbService.getAbonentType(sessionId, msisdn);
-            long endExec = new Date().getTime();
+            long endExec = System.currentTimeMillis();
             if (logger.isDebugEnabled()) {
                 logger.debug(LoggerText.SQL_RESPONSE.getText(), sessionId, RestProcedure.get_msisdn, endExec - startExec);
             }

@@ -23,6 +23,8 @@ import org.apache.log4j.spi.LoggingEvent;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Arrays;
+import java.util.List;
 
 public class AtlasProviderImpl extends AppenderSkeleton implements AtlasProvider {
 
@@ -31,6 +33,9 @@ public class AtlasProviderImpl extends AppenderSkeleton implements AtlasProvider
     private ParentalCtl_Core_TRACES trace;
     private ParentalCtl_Core_ALARMS alarms;
     private ClientAccessPoint clientAccessPoint;
+
+    private Variable iplist;
+
     private final String CONNECTION_NAME = "parental";
 
 
@@ -62,7 +67,17 @@ public class AtlasProviderImpl extends AppenderSkeleton implements AtlasProvider
             });
             aom.getCoreStatistics().getGroup().getStatisticsVariable("ParentUri").setStringValue("/parent");
             aom.getCoreStatistics().getGroup().getStatisticsVariable("ChildUri").setStringValue("/child");
+            iplist = aom.getCoreConfig().getVariable("AllowedIpList");
             clientAccessPoint = aom.getClientAccessPoint("DataSource");
+
+            iplist.addEventsListener(new VariableEventsListener() {
+                @Override
+                public void onChangeValue(Variable variable, Value value, Value value1) {
+                    if (!value1.getString().equals(value.getString())) {
+                        iplist = variable;
+                    }
+                }
+            });
         } catch (AtlasException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -149,5 +164,10 @@ public class AtlasProviderImpl extends AppenderSkeleton implements AtlasProvider
                 .getVariable("DataSourceName")
                 .readValue()
                 .getString();
+    }
+
+    @Override
+    public List<String> getAllowedIps() {
+        return Arrays.asList(iplist.readValue().getString().split(","));
     }
 }
