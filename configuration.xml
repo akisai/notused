@@ -16,15 +16,15 @@
       <uses>
         <component name="ATLAS OM Interface" mainstream="1.5" />
         <component name="ATLAS API Interface" mainstream="1.5" />
-        <component name="RTSIB Runtime" mainstream="3.4" recoverable="last_release" />
-        <component name="SAClientLib" mainstream="3.4" recoverable="last_release" />
-        <component name="SADB Commons" mainstream="3.4" recoverable="last_release" />
+        <component name="RTSIB Runtime" mainstream="3.4.last_release" />
+        <component name="SAClientLib" mainstream="3.4.last_release" />
+        <component name="SADB Commons" mainstream="3.4.last_release" />
         <component name="Bercut Common" mainstream="1.2" />
         <component name="slf4j api" mainstream="1.7" />
         <component name="Oracle JDBC Driver 6 12.1.0.2.0" mainstream="12.1" />
         <component name="Tomcat servlet-api" mainstream="7.0" />
         <component name="AOI ParentalCtl" mainstream="1.0" use-as="wsdl" todir="WEB-INF\wsdl" />
-        <component name="XML runtime" mainstream="1.1" recoverable="last_release" />
+        <component name="XML runtime" mainstream="1.1.last_release" />
         <!-- log4j start -->
         <component name="Log4j 1.2.17" mainstream="1.0" />
         <component name="slf4j log4j" mainstream="1.7" />
