@@ -1,5 +1,6 @@
 package com.bercut.sa.parentalctl.atlas;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +14,6 @@ public class AtlasProviderImplTest implements AtlasProvider {
 
     @Override
     public List<String> getAllowedIps() {
-        return null;
+        return Collections.singletonList("1");
     }
 }
