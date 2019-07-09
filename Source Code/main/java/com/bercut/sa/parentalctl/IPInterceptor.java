@@ -2,10 +2,10 @@ package com.bercut.sa.parentalctl;
 
 import com.bercut.sa.parentalctl.atlas.AtlasProvider;
 import com.bercut.sa.parentalctl.logs.LoggerText;
-import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +41,7 @@ public class IPInterceptor implements HandlerInterceptor {
         } else {
             logger.info(LoggerText.IP_DENIED.getText(), request.getRemoteAddr());
             response.getWriter().write("IP denied");
-            response.setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return false;
         }
     }
