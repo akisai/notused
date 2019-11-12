@@ -64,20 +64,17 @@
           <external-lib name="slf4j api" mainstream="1.7" />
           <!-- -->
           <!-- spring start -->
-          <external-lib name="spring-aop-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-beans-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-context-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-core-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-expression-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-orm-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-tx-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-webmvc-4.3.12.RELEASE.jar" />
-          <external-lib name="spring-web-4.3.12.RELEASE.jar" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-web" mainstream="4.3" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-core" mainstream="4.3" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-aop" mainstream="4.3" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-beans" mainstream="4.3" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-context" mainstream="4.3" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-webmvc" mainstream="4.3" />
+          <external-lib name="Spring Framework 4.3.12.RELEASE spring-expression" mainstream="4.3" />
           <!-- sping end -->
           <source name="main/java/**/*.java" />
           <source name="gen/java/**/*.java" />
-          <external-lib name="Apache Commons Codec 1.6" />
-          <external-lib name="Commons logging 1.1" />
+          <external-lib name="Commons logging" mainstream="1.1" />
           <resource name="WEB-INF\**\*.*" />
           <resource name="*.xml" />
         </war>
