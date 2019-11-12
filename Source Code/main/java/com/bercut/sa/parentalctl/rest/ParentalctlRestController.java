@@ -29,7 +29,7 @@ public class ParentalctlRestController {
         this.dbService = dbService;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(ParentalctlRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @PostMapping("/parent")
     public ResponseEntity addParent(@RequestBody Msisdn msisdn) {

@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class SqlUtils {
 
 
-    private final static Logger logger = LoggerFactory.getLogger(SqlUtils.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final AtlasProvider atlasProvider;
 

@@ -24,7 +24,7 @@ import java.sql.SQLException;
 @Component
 public class DbServiceImpl implements DbService {
 
-    private final Logger logger = LoggerFactory.getLogger(DbService.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final SqlUtils sqlUtils;
 
     @Autowired
