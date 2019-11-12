@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -37,8 +38,8 @@ public class SqlUtils {
                 logger.debug(LoggerText.SQL_OPERATION.getText(), sessionId, "getConnection");
             }
             return ds.getConnection();
-        } catch (Throwable e) {
-            logger.warn(LoggerText.DB_ERROR.getText(), sessionId, "getConnection", e.getMessage());
+        } catch (NamingException | ClassCastException e) {
+            //logger.warn(LoggerText.DB_ERROR.getText(), sessionId, "getConnection", e.getMessage());
             throw new SQLException("Connection refused: " + e.getMessage(), e);
         }
     }
